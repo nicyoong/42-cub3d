@@ -6,7 +6,7 @@
 /*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 20:42:03 by tching            #+#    #+#             */
-/*   Updated: 2025/08/05 21:21:24 by tching           ###   ########.fr       */
+/*   Updated: 2025/08/05 21:38:43 by tching           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>
+# include <errno.h>
 # include <../../libs/libft/libft.h>
 
 # define WINDOW_HEIGHT	720
