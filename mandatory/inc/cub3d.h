@@ -6,7 +6,7 @@
 /*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 20:42:03 by tching            #+#    #+#             */
-/*   Updated: 2025/08/05 21:15:03 by tching           ###   ########.fr       */
+/*   Updated: 2025/08/05 21:21:24 by tching           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define UP	65362
 # define DOWN	65364
 # define ESC	65307
+
+# define INVALID_PTR	(void *)-1
 
 enum	e_axis{
 	x,
