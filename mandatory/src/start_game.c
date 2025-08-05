@@ -6,7 +6,7 @@
 /*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 20:36:44 by tching            #+#    #+#             */
-/*   Updated: 2025/08/05 20:41:52 by tching           ###   ########.fr       */
+/*   Updated: 2025/08/05 22:12:36 by tching           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	game_display(t_game *game)
 	return (0);
 }
 
-void	start_game(t_game *game)
+void	start_cubed(t_game *game)
 {
 	mlx_hook(game->window, 2, 1, key_press_game, game);
 	mlx_hook(game->window, 3, 2, key_release, game);
