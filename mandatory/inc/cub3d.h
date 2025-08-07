@@ -6,7 +6,7 @@
 /*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 20:42:03 by tching            #+#    #+#             */
-/*   Updated: 2025/08/07 21:20:06 by tching           ###   ########.fr       */
+/*   Updated: 2025/08/07 21:29:02 by tching           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_game
 	t_win_list	*window;
 	t_player	player;
 	t_image		img;
+	t_image		wall_img;
 	t_params	params;
 }	t_game;
 
