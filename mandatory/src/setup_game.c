@@ -6,7 +6,7 @@
 /*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 22:17:12 by tching            #+#    #+#             */
-/*   Updated: 2025/08/05 22:39:00 by tching           ###   ########.fr       */
+/*   Updated: 2025/08/07 21:29:41 by tching           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,14 @@ void	load_texture(t_game *game)
 {
 	int	res;
 
-	res = //TBC
+	res = load_image(game->wall_img + NORTH, game->mlx, \
+		game->param.texture[NORTH]);
+	res += load_image(game->wall_img + SOUTH, game->mlx, \
+		game->param.texture[SOUTH]);
+	res += load_image(game->wall_img + WEST, game->mlx, \
+		game->param.texture[WEST]);
+	res += load_image(game->wall_img + EAST, game->mlx, \
+		game->param.texture[EAST]);
 	if (res != EXIT_SUCCESS)
 		//ERRORMSG
 }
