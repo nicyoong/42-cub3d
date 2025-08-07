@@ -6,7 +6,7 @@
 /*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 20:42:03 by tching            #+#    #+#             */
-/*   Updated: 2025/08/05 21:38:43 by tching           ###   ########.fr       */
+/*   Updated: 2025/08/07 21:20:06 by tching           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <errno.h>
-# include <../../libs/libft/libft.h>
+# include <../../libft/libft.h>
 
 # define WINDOW_HEIGHT	720
 # define WINDOW_WIDTH	128
@@ -74,6 +74,7 @@ typedef struct s_params
 	char	**texture;
 	char	**map;
 	char	**color[2];
+	int	env[2];
 }	t_params;
 
 typedef struct s_game
@@ -87,8 +88,6 @@ typedef struct s_game
 	t_player	player;
 	t_image		img;
 	t_params	params;
-		
-//to be expanded
 }	t_game;
 
 #endif
