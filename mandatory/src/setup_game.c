@@ -53,7 +53,7 @@ int	load_image(t_image *image, void *mlx, char *path)
         return (0);
 }
 
-void	load texture(t_game *game)
+void	load_texture(t_game *game)
 {
 	int	res;
 
