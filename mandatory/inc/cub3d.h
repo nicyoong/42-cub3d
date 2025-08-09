@@ -20,6 +20,9 @@
 # include <limits.h>
 # include <stdbool.h>
 # include <math.h>
+# include <fcntl.h>
+# include <stdint.h>
+# include <stdlib.h>
 # include <../../libft/libft.h>
 # include <../../mlx/mlx.h>
 
