@@ -13,12 +13,14 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <mlx.h>
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>
 # include <errno.h>
+# include <limits.h>
+# include <stdbool.h>
 # include <../../libft/libft.h>
+# include <../../mlx/mlx.h>
 
 # define WINDOW_HEIGHT	720
 # define WINDOW_WIDTH	128
