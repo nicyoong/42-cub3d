@@ -19,9 +19,11 @@ static void	init_cubed(t_game *game)
 	ft_bzero(&game->player, sizeof(t_player));
 	game->window_height = WINDOW_HEIGHT;
 	game->window_width = WINDOW_WIDTH;
+	game->half_height = WINDOW_HEIGHT / 2;
+	game->half_width = WINDOW_WIDTH / 2;
 	game->params.texture = ft_calloc(sizeof(char *), 4);
 	if (!game->params.texture)
-		//
+		error("Failed cub3d malloc.", game);
 }
 
 int	main(int argc, char **argv)
@@ -30,7 +32,7 @@ int	main(int argc, char **argv)
 
 	init_cubed(&game);
 	load_map(&game, argc, argv[argc - 1]);
-	//map validation
+	set_params(&game);
 	start_cubed(&game);
 	return (0);
 }
