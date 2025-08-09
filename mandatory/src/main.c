@@ -22,8 +22,11 @@ static void	init_cubed(t_game *game)
 	game->half_height = WINDOW_HEIGHT / 2;
 	game->half_width = WINDOW_WIDTH / 2;
 	game->params.texture = ft_calloc(sizeof(char *), 4);
+	game->player.move_speed = 4;
+	game->player.rotate_speed = ROTATE_SPEED_2;
+	game->wall_prop.projected_wall = game->half_width / tan(FOV_ANGLE / 2);
 	if (!game->params.texture)
-		error("Failed cub3d malloc.", game);
+		error("Failed cub3d init.", game);
 }
 
 int	main(int argc, char **argv)
