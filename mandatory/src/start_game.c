@@ -14,9 +14,10 @@
 
 int	game_display(t_game *game)
 {
-	//placeholders
-	//
-	//
+	move_player(game);
+	init_floor_ceiling(game);
+	init_walls(game);
+	//cast_rays(game);
 	mlx_do_sync(game->mlx);
 	mlx_put_image_to_window(game->mlx, game->window, game->img.img, 0, 0);
 	return (0);
@@ -24,7 +25,7 @@ int	game_display(t_game *game)
 
 void	start_cubed(t_game *game)
 {
-	mlx_hook(game->window, 2, 1, key_press_game, game);
+	mlx_hook(game->window, 2, 1, keypress_game, game);
 	mlx_hook(game->window, 3, 2, key_release, game);
 	mlx_hook(game->window, 17, 0, close_window, game);
 	mlx_loop_hook(game->mlx, display_game, game);

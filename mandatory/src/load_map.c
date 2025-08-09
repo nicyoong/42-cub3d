@@ -53,6 +53,6 @@ void	load_map(t_game *game, int argc, char *argv)
 	}
 	close (fd);
 	if (*game->file == '\0')
-		//
+		error("File content is empty.", game);
 }
 

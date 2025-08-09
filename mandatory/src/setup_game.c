@@ -14,10 +14,13 @@
 
 void	setup_game(t_game *game)
 {
+	if (game->window_height < 300 || game->window_width < 300)
+		error("Invalid resolution, must be more than 300 x 300.", game);
 	game->mlx = mlx_init();
 	if (!game->mlx)
-		//ERROR
+		error("MLX initialisation fail.", game);
 	resource_load(game);
+	load_rays(game);
 }
 
 void	resource_load(t_game *game)
@@ -25,19 +28,19 @@ void	resource_load(t_game *game)
 	game->windowload = mlx_new_window(game->mlx, game->window_width, \
 		game->window_height, "cub3D");
 	if (!game->window)
-		//ERRORMSG
+		error("Window fail to open.", game);
 	game->img.img = mlx_new_window(game->mlx, game->window_width, \
 		game->window_height);
 	if (!game->img.img)
-		//ERRORMSG
+		error("Failed image creation.", game);
 	game->img.img->bpp /= 8;
 	game->img.img->size_line /= game->img.img->bpp;
 	game->img.buffer = (uint32_t *)game->img.img->data;
 	load_texture(game);
-	//load_player(game);
+	load_player(game);
 }
 
-int	load_image(t_image *image, void *mlx, char *path)
+int	load_sprite(t_image *image, void *mlx, char *path)
 {
 	int	height;
 	int	width;
@@ -48,24 +51,24 @@ int	load_image(t_image *image, void *mlx, char *path)
 	image->img->height = height;
 	image->img->width = width;
 	game->img.img->bpp /= 8;
-        game->img.img->size_line /= game->img.img->bpp;
-        game->img.buffer = (uint32_t *)game->img.img->data;
-        return (0);
+    game->img.img->size_line /= game->img.img->bpp;
+    game->img.buffer = (uint32_t *)game->img.img->data;
+    return (0);
 }
 
 void	load_texture(t_game *game)
 {
 	int	res;
 
-	res = load_image(game->wall_img + NORTH, game->mlx, \
-		game->param.texture[NORTH]);
-	res += load_image(game->wall_img + SOUTH, game->mlx, \
-		game->param.texture[SOUTH]);
-	res += load_image(game->wall_img + WEST, game->mlx, \
-		game->param.texture[WEST]);
-	res += load_image(game->wall_img + EAST, game->mlx, \
-		game->param.texture[EAST]);
+	res = load_sprite(game->wall_img + NO, game->mlx, \
+		game->param.texture[NO]);
+	res += load_sprite(game->wall_img + SO, game->mlx, \
+		game->param.texture[SO]);
+	res += load_sprite(game->wall_img + WE, game->mlx, \
+		game->param.texture[WE]);
+	res += load_sprite(game->wall_img + EA, game->mlx, \
+		game->param.texture[EA]);
 	if (res != EXIT_SUCCESS)
-		//ERRORMSG
+		error("Failed texture load.", game);
 }
 	

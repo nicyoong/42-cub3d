@@ -42,14 +42,14 @@ void    set_params(t_game *game)
 
 int is_texture(char *file, int identifier)
 {
-    if (!ft_strncmp(file, "NORTH", 2))
-        *identifier = NORTH;
-    else if (!ft_strncmp(file, "SOUTH", 2))
-        *identifier = SOUTH;
-    else if (!ft_strncmp(file, "EAST", 2))
-        *identifier = EAST;
-    else if (!ft_strncmp(file, "WEST", 2))
-        *identifier = WEST;
+    if (!ft_strncmp(file, "NO", 2))
+        *identifier = NO;
+    else if (!ft_strncmp(file, "SO", 2))
+        *identifier = SO;
+    else if (!ft_strncmp(file, "EA", 2))
+        *identifier = EA;
+    else if (!ft_strncmp(file, "WE", 2))
+        *identifier = WE;
     else
         return (0);
     return (1);
@@ -57,9 +57,9 @@ int is_texture(char *file, int identifier)
 
 int is_color(char *file, int identifier)
 {
-    if (!ft_strncmp(file, "FLOOR", 2))
+    if (!ft_strncmp(file, "F", 2))
         *identifier = FLOOR;
-    else if (!ft_strncmp(file, "CEILING", 2))
+    else if (!ft_strncmp(file, "C", 2))
         *identifier = CEILING;
     else
         return (0);
