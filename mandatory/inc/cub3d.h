@@ -19,6 +19,7 @@
 # include <errno.h>
 # include <limits.h>
 # include <stdbool.h>
+# include <math.h>
 # include <../../libft/libft.h>
 # include <../../mlx/mlx.h>
 
