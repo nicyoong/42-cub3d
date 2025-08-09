@@ -30,7 +30,8 @@
 # define ESC	65307
 
 # define TRANSPARENT	0xFF000000
-# define SHADE_NUM	600
+# define SHADE_NUM		600
+# define TEXTURE_NUM	4
 
 # define INVALID_PTR	(void *)-1
 
