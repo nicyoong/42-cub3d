@@ -42,6 +42,7 @@
 # define TRANSPARENT	0xFF000000
 # define SHADE_NUM		600
 # define TEXTURE_NUM	4
+# define RAY_STRIP		1
 
 # define INVALID_PTR	(void *)-1
 # define PI				3.14159265359
@@ -77,10 +78,10 @@ enum	e_column{
 };
 
 enum	e_direction{
-	NORTH,
-	SOUTH,
-	WEST,
-	EAST
+	NO,
+	SO,
+	WE,
+	EA
 };
 
 typedef struct s_image
