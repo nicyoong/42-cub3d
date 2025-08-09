@@ -81,7 +81,7 @@ void	exit_game(t_game *game)
 	exit (errno);
 }
 
-void	error_game(char	*message, *game)
+void	error(char	*message, *game)
 {
 	printf("Error\n%s.\n%s\n", message, sterror(errno));
 	free_matrix((void **)game->params.texture, 4);
