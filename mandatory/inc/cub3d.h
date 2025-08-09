@@ -6,7 +6,7 @@
 /*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 20:42:03 by tching            #+#    #+#             */
-/*   Updated: 2025/08/07 21:29:02 by tching           ###   ########.fr       */
+/*   Updated: 2025/08/09 14:44:26 by tching           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # define UP	65362
 # define DOWN	65364
 # define ESC	65307
+
+# define TRANSPARENT	0xFF000000
+# define SHADE_NUM	600
 
 # define INVALID_PTR	(void *)-1
 
