@@ -12,6 +12,13 @@
 
 #include "cub3d.h"
 
+void	free_null(void **ptr)
+{
+	if (*ptr != NULL)
+		free(*ptr);
+	*ptr = NULL;
+}
+
 static void	free_game(t_game *game)
 {
 	if (game->file != INVALID_PTR)
@@ -22,7 +29,7 @@ static void	end_game(t_game *game)
 {
 	if (game->img.img)
 		mlx_destroy_image(game->mlx, game->img.img);
-	//
+	destroy_textures(game->wall_img, game->mlx, TEXTURE_NUM);
 	if (game->window)
 		mlx_destroy_window(game->mlx, game->window);
 	if (game->mlx)
@@ -44,10 +51,46 @@ static void	destroy_textures(t_image *images, vois *mlx, int x)
 		i++;
 	}
 }
+void	free_matrix(void **matrix, size_t size)
+{
+	size_t	i;
+
+	i = -1;
+	if (matrix != NULL)
+	{
+		if (size)
+		{
+			while (++i < size)
+				free_null((void *)&matrix[i]);
+		}
+		else
+			while (matrix[++i])
+				free_null((void *)&matrix[i]);
+			free_null((void *)&matrix);
+	}
+}
 
 void	exit_game(t_game *game)
 {
-	//
+	free_matrix((void **)game->params.texture, 4);
+	free_matrix((void **)game->params.map, 0);
+	free_matrix((void **)game->params.color[0], 0);
+	free_matrix((void **)game->params.color[1], 0);
 	end_game(game);
 	free_game(game);
+	exit (errno);
 }
+
+void	error_game(char	*message, *game)
+{
+	printf("Error\n%s.\n%s\n", message, sterror(errno));
+	free_matrix((void **)game->params.texture, 4);
+	free_matrix((void **)game->params.map, 0);
+	free_matrix((void **)game->params.color[0], 0);
+	free_matrix((void **)game->params.color[1], 0);
+	end_game(game);
+	free_game(game);
+	exit (errno);
+}
+
+
