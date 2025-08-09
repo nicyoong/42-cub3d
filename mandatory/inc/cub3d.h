@@ -6,7 +6,7 @@
 /*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 20:42:03 by tching            #+#    #+#             */
-/*   Updated: 2025/08/09 14:44:26 by tching           ###   ########.fr       */
+/*   Updated: 2025/08/10 01:49:04 by tching           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # define DOUBLE_PI		6.28318530718
 # define PI_AND_HALF_PI		4.71238898038
 
-# define FOV_ANGLE		(60.0 * PI / 180.0)
+# define FOV_ANGLE			1.0471975511965977461542144610932 //(60.0 * PI / 180.0)
 # define ROTATE_SPEED_1 	0.01745329251994329576923690768489
 # define ROTATE_SPEED_2 	0.03490658503988659153847381536977
 # define ROTATE_SPEED_3 	0.06981317007977318307694763073954
@@ -58,8 +58,7 @@
 
 enum	e_axis{
 	x,
-	y,
-	z
+	y
 };
 
 enum	e_level{
@@ -136,6 +135,24 @@ typedef struct s_params
 	int	env[2];
 }	t_params;
 
+typedef struct s_ray_prop
+{
+	float	hypotenuse;
+	float	hit;
+	float	x_int;
+	float	y_int;
+	float	x_step;
+	float	y_step;
+}	t_ray_prop;
+
+typedef struct s_ray
+{
+	t_axis	xy;
+	bool	ray_up;
+	bool	ray_left;
+	bool	hit_vertical;
+}	t_ray;
+
 typedef struct s_game
 {
 	int		window_height;
@@ -144,6 +161,7 @@ typedef struct s_game
 	int		minimap_width;
 	long	half_height;
 	long	half_width;
+	long	ray_nums;
 	char		*file;
 	char		*map;
 	t_xvar		*mlx;
@@ -154,6 +172,8 @@ typedef struct s_game
 	t_params	params;
 	t_img_prop	texture_properties;
 	t_wall_prop	wall_prop;
+	t_ray		*rays;
+	t_ray_prop	ray_prop[2];
 }	t_game;
 
 #endif
