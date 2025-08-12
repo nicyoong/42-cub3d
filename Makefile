@@ -39,7 +39,7 @@ SRCS	= $(addprefix $(SRC_DIR)/, \
 			raycast.c \
 			set_params.c \
 			setup_game.c \
-			start_game.c)
+			start_cubed.c)
 
 OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
