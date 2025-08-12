@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-static int	check_file(int argc, char *argv)
+int	check_file(int argc, char *argv)
 {
 	int	fd;
 

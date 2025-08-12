@@ -6,7 +6,7 @@
 /*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 20:42:03 by tching            #+#    #+#             */
-/*   Updated: 2025/08/10 01:49:04 by tching           ###   ########.fr       */
+/*   Updated: 2025/08/12 20:37:45 by tching           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,5 +181,47 @@ typedef struct s_game
 	t_ray		*rays;
 	t_ray_prop	ray_prop[2];
 }	t_game;
+
+int	close_window(t_game *game);
+void	free_null(void **ptr);
+void	free_game(t_game *game);
+void	end_game(t_game *game);
+void	destroy_textures(t_image *images, vois *mlx, int x);
+void	free_matrix(void **matrix, size_t size);
+void	exit_game(t_game *game);
+void	error(char	*message, t_game *game);
+int	key_release(int keycode, t_game *game);
+int	keypress_game(int keycode, t_game *game);
+int	check_file(int argc, char *argv);
+void	load_map(t_game *game, int argc, char *argv);
+uint32_t	get_color(t_image image, int x, int y);
+uint32_t	put_shade(uint32_t color, double scale);
+void	put_pixel(t_image image, int x, int y, uint32_t color);
+void    load_player(t_game *game);
+void    rotation_angle(t_game *game, char c);
+void    load_rays(t_game *game);
+size_t  get_max_ls(char **map);
+void    cast_all_rays(t_game *game);
+void    cast_ray(t_game *game, t_ray *ray);
+void    vertical_cast(t_game *game, t_ray **ver, t_ray *ray);
+void    horizontal_cast(t_game *game, t_ray **hor, t_ray *ray);
+void    calculate_distance(t_game *game, t_ray *ray);
+double  hypotenuse(double x, double y);
+void    get_angle(double *angle);
+void    construct_ray(t_ray *ray);
+void    set_params(t_game *game);
+int is_texture(char *file, int identifier);
+int is_color(char *file, int identifier);
+int get_texture(char *file, int identifier, t_game *game);
+int get_map(char *file, t_game *game);
+int get_env_color(char *file, int identifier, t_game game);
+void	setup_game(t_game *game);
+void	resource_load(t_game *game);
+int	load_sprite(t_image *image, void *mlx, char *path);
+void	load_texture(t_game *game);
+int	game_display(t_game *game);
+void	start_cubed(t_game *game);
+
+
 
 #endif

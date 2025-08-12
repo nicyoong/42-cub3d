@@ -19,13 +19,14 @@ void	free_null(void **ptr)
 	*ptr = NULL;
 }
 
-static void	free_game(t_game *game)
+void	free_game(t_game *game)
 {
 	if (game->file != INVALID_PTR)
 		free_null((void *)&game->file);
+	free_null((void *)&game->rays);
 }
 
-static void	end_game(t_game *game)
+void	end_game(t_game *game)
 {
 	if (game->img.img)
 		mlx_destroy_image(game->mlx, game->img.img);
@@ -39,7 +40,7 @@ static void	end_game(t_game *game)
 	}
 }
 
-static void	destroy_textures(t_image *images, vois *mlx, int x)
+void	destroy_textures(t_image *images, vois *mlx, int x)
 {
 	int	i;
 
@@ -81,7 +82,7 @@ void	exit_game(t_game *game)
 	exit (errno);
 }
 
-void	error(char	*message, *game)
+void	error(char	*message, t_game *game)
 {
 	printf("Error\n%s.\n%s\n", message, sterror(errno));
 	free_matrix((void **)game->params.texture, 4);

@@ -36,6 +36,8 @@ int	main(int argc, char **argv)
 	init_cubed(&game);
 	load_map(&game, argc, argv[argc - 1]);
 	set_params(&game);
+	//validation
+	setup_game(&game);
 	start_cubed(&game);
 	return (0);
 }
