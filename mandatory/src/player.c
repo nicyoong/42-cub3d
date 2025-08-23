@@ -5,71 +5,94 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/10 01:01:13 by tching            #+#    #+#             */
-/*   Updated: 2025/08/10 01:01:24 by tching           ###   ########.fr       */
+/*   Created: 2025/08/21 19:21:44 by tching            #+#    #+#             */
+/*   Updated: 2025/08/21 19:21:54 by tching           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3D.h"
 
-void    load_player(t_game *game)
+int has_wall(t_game *game, double x, double y)
 {
-    int i;
-    int j;
+    int line;
+    int column;
 
-    i = 0;
-    while(game->params.map[i])
+    line = (int)floor((y / TILE_SIZE));
+    column = (int)floor((x / TILE_SIZE));
+    if (y < 0 || y > game->minimap_height || x < 0 || x > ft_strlen(game->params.map[line])* TILE_SIZE)
+        return (1);
+    return (game->params.map[line][column] == '1');
+}
+
+int collide_diagonal(t_game *game, double to_x, double to_y)
+{
+    double x_diff;
+    double y_diff;
+
+    x_diff = to_x - game->player.xy.x;
+    y_diff = to_y - game->player.xy.y;
+    if (fabs(x_diff) <= TILE_SIZE && fabs(y_diff) <= TILE_SIZE)
     {
-        j = 0;
-        while (game->params.map[i][j])
+        if (has_wall(game, to_x - x_diff, to_y))
+            return (1);
+        if (has_wall(game, to_x, to_y - y_diff))
+            return (1);
+    }
+    return (1);
+}
+
+void    calculate_next_step(t_game *game, int move, int side_move)
+{
+    double  to_x;
+    double  to_y;
+    double  angle;
+    int     x_margin;
+    int     y_margin;
+
+    angle = game->player.xy.angle;
+    to_x = (cos(angle) * move) + (cos(angle + HALF_PI) * side_move);
+    to_y = (sin(angle) * move) + (sin(angle + HALF_PI) * side_move);
+    x_margin = 16;
+    y_margin = 16;
+    if (to_x < 0)
+        x_margin = -16;
+    if (to_y < 0)
+        y_margin = -16;
+    to_x += game->player.xy.x;
+    to_y += game->player.xy.y;
+    if (!has_wall(game, to_x + x_margin, to_y + y_margin) && !collide_diagonal(game, to_x + x_margin, to_y + y_margin))
+    {
+        game->player.xy.x = to_x;
+        game->player.xy.y = to_y;
+    }
+}
+
+void    bound_angle(double *angle)
+{
+    *angle = remainder(*angle, DOUBLE_PI);
+    if (*angle < 0)
+        *angle = DOUBLE_PI + *angle;
+}
+
+void    player_movement(t_game *game)
+{
+    int move;
+    int side_move;
+
+    if (game->player.move_direction)
+    {
+        game->player.xy.angle += game->player.move_direction * game->player.rotate_speed;
+        bound_angle(&game->player.xy.angle);
+    }
+    if (game->player.side_direction || game->player.walk_direction)
+    {
+        move = game->player.walk_direction * game->player.move_speed;
+        side_move = game->player.walk_direction * game->player.move_speed;
+        if (game->player.side_direction && game->player.walk_direction)
         {
-            if (ft_strchr("NSWE", game->params.map[i][j]))
-            {
-                rotation_angle(game, game->params.map[i][j]);
-                game->player.xy.x = j * TILE_SIZE + (TILE_SIZE * 0.5);
-                game->player.xy.y = i * TILE_SIZE + (TILE_SIZE * 0.5);
-                game->params.map[i][j] = '0';
-                return ;
-            }
-            j++;
+            move /= 2;
+            side_move /= 2;
         }
-        i++;
+        calculate_next_step(game, move, side_move);
     }
 }
-
-void    rotation_angle(t_game *game, char c)
-{
-    if (c == 'N')
-        game->player.xy.angle = PI_AND_HALF_PI;
-    else if (c == 'S')
-        game->player.xy.angle = HALF_PI;
-    else if (c == 'W')
-        game->player.xy.angle = PI;
-    else if (c == 'E')
-        game->player.xy.angle = 0;
-}
-
-void    load_rays(t_game *game)
-{
-    game->ray_nums = game->window_width / RAY_STRIP;
-    game->rays = malloc(sizeof(t_ray) * game->ray_nums);
-    if (!game->rays)
-        error("Failed malloc.", game);
-}
-
-size_t  get_max_ls(char **map)
-{
-    size_t  max_ls;
-    int     i;
-
-    max_ls = 0;
-    i = 0;
-    while (map[i])
-    {
-        if (ft_strlen(map[i] > max_ls))
-            max_ls = ft_strlen(map[i]);
-        i++;
-    }
-    return (max_ls);
-}
-
