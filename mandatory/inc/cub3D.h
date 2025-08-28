@@ -1,90 +1,76 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/20 20:50:09 by tching            #+#    #+#             */
-/*   Updated: 2025/08/20 20:50:12 by tching           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <unistd.h>
 # include <stdio.h>
-# include <string.h>
-# include <errno.h>
-# include <limits.h>
-# include <stdbool.h>
-# include <math.h>
-# include <fcntl.h>
-# include <stdint.h>
 # include <stdlib.h>
-# include <libft.h>
-# include <mlx.h>
-# include <mlx_int.h>
+# include <math.h>
+# include <errno.h>
+# include <unistd.h>
+# include <stdbool.h>
+# include "mlx.h"
+# include "mlx_int.h"
+# include "libft.h"
+# include <fcntl.h>
+# include <string.h>
+# include <stdint.h>
+# include <limits.h>
 
-# define WINDOW_HEIGHT	720
-# define WINDOW_WIDTH	1280
-# define TILE_SIZE		64
+# define INPUT_ERROR				(void *)-1
 
-# define LEFT	65361
-# define RIGHT	65363
-# define UP	65362
-# define DOWN	65364
-# define ESC	65307
-# define SHIFT	65505
+# define MOVEMENT_SPEED			4
+# define RAY_STRIP				1
+# define TILE_SIZE				64
+# define WINDOW_WIDTH		1280
+# define WINDOW_HEIGHT		720
+# define TEXTURES_NUM			4
+# define FOV_ANGLE				1.0471975511965977461542144610932
+# define ROTATION_SPEED 	0.03490658503988659153847381536977
 
-# define RIGHT_TURN	1
-# define LEFT_TURN -1
+# define HALF_PI				1.570796
+# define PI						3.141592
+# define PI_PLUS_HALF_PI		4.712388
+# define TWO_PI					6.283185
 
-# define MOVE_LEFT -1
-# define MOVE_RIGHT 1
-# define MOVE_UP	1
-# define MOVE_DOWN	-1
+# define TURN_RIGHT				1
+# define TURN_LEFT				-1
 
-# define TRANSPARENT	0xFF000000
-# define SHADE_NUM		600
-# define TEXTURE_NUM	4
-# define RAY_STRIP		1
+# define WALK_LEFT				-1
+# define WALK_UP				1
+# define WALK_RIGHT				1
+# define WALK_DOWN				-1
 
-# define INVALID_PTR	(void *)-1
-# define PI				3.14159265359
-# define HALF_PI		1.57079632679
-# define DOUBLE_PI		6.28318530718
-# define PI_AND_HALF_PI		4.71238898038
+# define ESC					65307
+# define SHIFT					65505
+# define ARROW_LEFT				65361
+# define ARROW_UP				65362
+# define ARROW_RIGHT			65363
+# define ARROW_DOWN				65364
 
-# define FOV_ANGLE			1.0471975511965977461542144610932 //(60.0 * PI / 180.0)
-# define ROTATE_SPEED_1 	0.01745329251994329576923690768489
-# define ROTATE_SPEED_2 	0.03490658503988659153847381536977
-# define ROTATE_SPEED_3 	0.06981317007977318307694763073954
-# define ROTATE_SPEED_4		0.10471975511965977461542144610932
+# define TRANSPARENCY			0xFF000000
+# define SHADE_NUMERATOR		600
 
-enum	e_axis{
-	x,
-	y
-};
-
-enum	e_level{
+enum e_level{
 	HORIZONTAL,
 	VERTICAL
 };
 
-enum	e_env{
+enum e_axis{
+	x,
+	y
+};
+
+enum e_column_max{
+	TOP_LINE,
+	BOTTOM_LINE
+};
+
+enum e_env{
 	CEILING,
 	FLOOR
 };
 
-enum	e_column{
-	TOP_LINE,
-	BOTTOM_LINE,
-};
-
-enum	e_direction{
+enum e_direction{
 	NO,
 	SO,
 	WE,
@@ -99,101 +85,106 @@ typedef struct s_image
 
 typedef struct s_img_prop
 {
-	int		height;
-	int		width;
-	int		x_offset;
-	int		y_offset;
 	uint32_t	color;
+	int			height;
+	int			width;
+	int			x_offset;
+	int			y_offset;
 }	t_img_prop;
-
-typedef struct s_wall_prop
-{
-	u_int32_t	x_color;
-	u_int32_t	y_color;
-	int			dist_from_top;
-	float		projected_height;
-	float		projected_wall;
-	float		ray_distance;
-}	t_wall_prop;
 
 typedef struct s_axis
 {
-	double		x;
-	double		y;
-	double		angle;
-	double		hypotenus;
+	double			x;
+	double			y;
+	double			angle;
+	double			hypo;
 }	t_axis;
 
 typedef struct s_player
 {
-	t_axis	xy;
-	double	rotate_speed;
-	int	player_direction;
-	int	move_speed;
-	int	move_direction;
-	int walk_direction;
-	int	side_direction;
+	t_axis		xy;
+	double		rotate_speed;
+	int			move_speed;
+	int			move_direction;
+	int			walk_direction;
+	int			side_direction;
 }	t_player;
 
-typedef struct s_params
+typedef struct s_rays_prop
 {
-	char	**texture;
-	char	**map;
-	char	**color[2];
-	int	env[2];
-}	t_params;
-
-typedef struct s_ray_prop
-{
-	float	hypotenuse;
-	bool	hit;
 	float	x_int;
 	float	y_int;
 	float	x_step;
 	float	y_step;
-}	t_ray_prop;
+	bool	is_hit;
+	float	hypo;
+}	t_rays_prop;
 
 typedef struct s_ray
 {
 	t_axis	xy;
+	bool	hit_vertical;
 	bool	ray_up;
 	bool	ray_left;
-	bool	hit_vertical;
 }	t_ray;
 
-typedef struct s_validation
+typedef struct s_params
 {
-	int		closed;
-	int		col_limit[2];
-	int		col;
-    int     row;
-	size_t	row_num;
-	size_t	total_row;
-    size_t  counter;
-}	t_validation;
+	char	**map;
+	char	**texture;
+	char	**rgb[2];
+	int		env[2];
+}	t_params;
+
+typedef struct s_wall_prop
+{
+	float		projected_height;
+	float		projected_wall;
+	float		ray_distance;
+	int			dist_from_top;
+	u_int32_t	x_color;
+	u_int32_t	y_color;
+}	t_wall_prop;
 
 typedef struct s_game
 {
-	int		window_height;
-	int		window_width;
-	int		minimap_height;
-	int		minimap_width;
-	long	half_height;
-	long	half_width;
-	long	ray_nums;
-	char		*file;
-	char		*map_cub;
-	t_xvar		*mlx;
-	t_win_list	*window;
-	t_player	player;
-	t_image		img;
-	t_image		wall_texture[TEXTURE_NUM];
-	t_params	params;
-	t_img_prop	texture_properties;
-	t_wall_prop	wall_prop;
-	t_ray		*rays;
-	t_ray_prop	ray_prop[2];
+	t_xvar					*mlx;
+	t_win_list				*window;
+	int						window_width;
+	int						window_height;
+	int						minimap_height;
+	int						minimap_width;
+	long					half_height;
+	long					half_width;
+	long					ray_num;
+	char					*file;
+	char					*map_cub;
+	t_ray					*rays;
+	t_rays_prop				ray_prop[2];
+	t_img_prop				texture_prop;
+	t_wall_prop				wall_prop;
+	t_player				player;
+	t_params				params;
+	t_image					img;
+	t_image					wall_texture[TEXTURES_NUM];
 }	t_game;
+
+typedef struct s_resize_validation
+{
+	size_t	total_lines;
+	size_t	line;
+	size_t	counter;
+	size_t	column_limit[2];
+}	t_resize_validation;
+
+typedef struct s_map_validation
+{
+	int		is_closed_behind;
+	int		column_limit[2];
+	int		column;
+	size_t	line_num;
+	size_t	total_lines;
+}	t_map_validation;
 
 void    init_cubed(t_game *game);
 int     init_graphics(t_game *game);
@@ -206,11 +197,11 @@ void    cleanup_sprites(t_image *image, void *mlx, int x);
 void    cleanup_game(t_game *game);
 void    free_game(t_game *game);
 void    exit_game(t_game *game);
-int close_window(t_game *game);
+int		close_window(t_game *game);
 double  hypotenuse(double x, double y);
 
 int     file_check(int argc,char *argv);
-void    open_file(t_game *game, int argc, char **argv);
+void    open_file(t_game *game, int argc, char *argv);
 
 int get_map(char *file, t_game *game);
 int get_env_color(char *file, int identifier, t_game *game);
@@ -218,9 +209,10 @@ int get_texture(char *file, int identifier, t_game *game);
 
 void    set_window(t_game *game);
 void    set_images(t_game *game);
-void    set_sprite(t_image *image, void *mlx, char *path);
+int    set_sprite(t_image *image, void *mlx, char *path);
 void    set_texture(t_game *game);
 void    setup_game(t_game *game);
+void	set_params(t_game *game);
 
 void    player_rotate_angle(t_game *game, char c);
 void    set_player(t_game *game);
@@ -237,8 +229,8 @@ void    bound_angle(double *angle);
 void    player_movement(t_game *game);
 
 void    contruct_ray(t_ray *ray);
-void    vertical_cast(t_game *game, t_ray_prop *v, t_ray *ray);
-void    horizontal_cast(t_game *game, t_ray_prop *h, t_ray *ray);
+void    vertical_cast(t_game *game, t_rays_prop *v, t_ray *ray);
+void    horizontal_cast(t_game *game, t_rays_prop *h, t_ray *ray);
 void    calculate_distance(t_game *game, t_ray *ray);
 void    raycast(t_game *game, t_ray *ray);
 void    cast_all_rays(t_game *game);
@@ -257,18 +249,18 @@ void    draw_cf(t_game *game);
 
 void    empty_row(t_game *game);
 int sides_closed(char **map);
-int surrounded(char **map, t_validation v);
-int row_validate(char **map, t_validation v);
+int surrounded(char **map, t_map_validation v);
+int row_validate(char **map, t_map_validation v);
 void    map_validate(t_game *game);
 
 void    reverse_matrix(char **ptr);
 int wall_and_space(char *map_line);
-int is_invalid_tile(char **map, t_validation v);
+int is_invalid_tile(char **map, t_resize_validation v);
 void    resize_row(t_game *game);
-void    resize_col(t_game *game);
+void    resize_column(t_game *game);
 
 void    free_matrix(void **matix, size_t size);
-size_t  count_vector(void **matrix);
+size_t  count_vectors(void **matrix);
 void    char_player_validate(t_game *game);
 void    color_validate(t_game *game, int env);
 void    validate_file(t_game *game);

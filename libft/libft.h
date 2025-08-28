@@ -6,7 +6,7 @@
 /*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:52:25 by tching            #+#    #+#             */
-/*   Updated: 2024/06/21 16:10:22 by tching           ###   ########.fr       */
+/*   Updated: 2025/08/19 20:00:40 by tiara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,8 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
+
+int	ft_strcmp(char *s1, char *s2);
+int	ft_isspace(int c);
 
 #endif
