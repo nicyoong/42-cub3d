@@ -6,7 +6,7 @@
 #    By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/10 12:53:22 by tching            #+#    #+#              #
-#    Updated: 2025/08/10 12:53:25 by tching           ###   ########.fr        #
+#    Updated: 2025/08/13 00:16:05 by tching           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME	= cub3D
 MKDIR	= mkdir -p
 RM		= rm -rf
 CC		= cc $(CFLAGS)
-CFLAGS	= -Wall -Wextra -Werror -03 #$(DEBUG)
-MLXFLAGS = -L(MLX) -lmlx -I$(MLX_DIR) -L/usr/lib -lXext -lX11 -lm -lz -L$(LIBFT_DIR) -lft
+CFLAGS   = -Wall -Wextra -Werror -I$(INC_DIR) -I$(MLX_DIR) -I$(LIB_DIR)
+MLXFLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib -lXext -lX11 -lm -lz -L$(LIB_DIR) -lft
 
 DEBUG	= -g3 -fsanitize=address
 INCLUDE	= -I $(INC_DIR)
@@ -29,26 +29,37 @@ SRC_DIR		= mandatory/src
 INC_DIR		= mandatory/inc
 
 SRCS	= $(addprefix $(SRC_DIR)/, \
-			close_window.c \
+			environment.c \
 			exit_game.c \
-			keypress.c \
-			load_map.c \
+			free_utils.c \
+			keys.c \
 			main.c \
-			pixels.c \
+			open_file.c \
+			params_utils.c \
 			player.c \
+			player_utils.c \
 			raycast.c \
+			resize_map.c \
 			set_params.c \
 			setup_game.c \
-			start_cubed.c)
+			validate_file.c \
+			validate_map.c \
+			walls.c)
 
 OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-all: $(LIBFT)/libft.a $(NAME)
+all: $(LIB_DIR)/libft.a $(MLX_DIR)/libmlx.a $(NAME)
 
-$(NAME): $(OBJS)
+$(LIB_DIR)/libft.a:
+	$(MAKE) -C $(LIB_DIR) bonus
+
+$(MLX_DIR)/libmlx.a:
+	$(MAKE) -C $(MLX_DIR)
+
+$(NAME): $(OBJS) $(LIB_DIR)/libft.a $(MLX_DIR)/libmlx.a
 	$(CC) $(CFLAGS) $^ -o $@ $(MLXFLAGS)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
@@ -59,7 +70,7 @@ $(LIB_DIR)/libft.a:
 
 clean:
 	rm -f $(OBJS)
-	rm -rf $(OBJDIR)
+	rm -rf $(OBJ_DIR)
 	$(MAKE) -C $(LIB_DIR) clean
 
 fclean: clean
