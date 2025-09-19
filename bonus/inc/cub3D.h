@@ -135,6 +135,14 @@ typedef struct s_params
 	int		env[2];
 }	t_params;
 
+typedef struct	s_door
+{
+	int		x;
+	int		y;
+	int		is_open;
+	double	progress;
+}	t_door;
+
 typedef struct s_wall_prop
 {
 	float		projected_height;
