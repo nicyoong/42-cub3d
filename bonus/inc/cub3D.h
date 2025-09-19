@@ -168,6 +168,8 @@ typedef struct s_game
 	char					*map_cub;
 	t_ray					*rays;
 	t_rays_prop				ray_prop[2];
+	t_door					doors[128];
+	int						door_count;
 	t_img_prop				texture_prop;
 	t_wall_prop				wall_prop;
 	t_player				player;
