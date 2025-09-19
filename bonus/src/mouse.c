@@ -2,20 +2,17 @@
 
 int mouse_move(int x, int y, t_game *game)
 {
-    static int last_x = -1;
+    int center_x = game->window_width / 2;
+    int delta_x = x - center_x;
 
     (void)y;
 
-    if (last_x == -1)
-        last_x = x;
-
-    int delta_x = x - last_x;
-    last_x = x;
-
-    double sensitivity = 0.002;
-
-    game->player.xy.angle += delta_x * sensitivity;
-    bound_angle(&game->player.xy.angle);
-
+    if (delta_x != 0)
+    {
+        double sensitivity = 0.002;
+        game->player.xy.angle += delta_x * sensitivity;
+        bound_angle(&game->player.xy.angle);
+        mlx_mouse_move(game->mlx, game->window, center_x, game->window_height / 2);
+    }
     return (0);
 }
