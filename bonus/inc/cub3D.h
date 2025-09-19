@@ -49,6 +49,12 @@
 # define TRANSPARENCY			0xFF000000
 # define SHADE_NUMERATOR		600
 
+# define DOOR_TILE        'D'
+# define DOOR_SPEED       0.08
+# define DOOR_MAX         1.0
+# define DOOR_MIN         0.0
+# define DOOR_INTERACT_DIST 1.2
+
 enum e_level{
 	HORIZONTAL,
 	VERTICAL
@@ -135,14 +141,6 @@ typedef struct s_params
 	int		env[2];
 }	t_params;
 
-typedef struct	s_door
-{
-	int		x;
-	int		y;
-	int		is_open;
-	double	progress;
-}	t_door;
-
 typedef struct s_wall_prop
 {
 	float		projected_height;
@@ -168,8 +166,6 @@ typedef struct s_game
 	char					*map_cub;
 	t_ray					*rays;
 	t_rays_prop				ray_prop[2];
-	t_door					doors[128];
-	int						door_count;
 	t_img_prop				texture_prop;
 	t_wall_prop				wall_prop;
 	t_player				player;
@@ -222,6 +218,10 @@ int    set_sprite(t_image *image, void *mlx, char *path);
 void    set_texture(t_game *game);
 void    setup_game(t_game *game);
 void	set_params(t_game *game);
+
+void    register_doors(t_game *game);
+
+int		mouse_move(int x, int y, t_game *game);
 
 void    player_rotate_angle(t_game *game, char c);
 void    set_player(t_game *game);

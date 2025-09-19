@@ -1,4 +1,4 @@
-#include "cub3D.h"
+#include "../inc/cub3D.h"
 
 int	main(int argc, char **argv)
 {
@@ -46,6 +46,7 @@ void	start_cubed(t_game *game)
 	mlx_hook(game->window, 2, 1, press_key, game);
 	mlx_hook(game->window, 3, 2, release_key, game);
 	mlx_hook(game->window, 17, 0, close_window, game);
+	mlx_hook(game->window, 6, 1L<<6, mouse_move, game);
 	mlx_loop_hook(game->mlx, init_graphics, game);
 	mlx_loop(game->mlx);
 }

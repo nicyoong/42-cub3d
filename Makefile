@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+         #
+#    By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/10 12:53:22 by tching            #+#    #+#              #
-#    Updated: 2025/08/13 00:16:05 by tching           ###   ########.fr        #
+#    Updated: 2025/09/19 19:47:04 by nyoong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ BONUS_SRCS = $(addprefix $(BONUS_SRC_DIR)/, \
 			free_utils.c \
 			keys.c \
 			main.c \
+			mouse.c \
 			open_file.c \
 			params_utils.c \
 			player.c \
