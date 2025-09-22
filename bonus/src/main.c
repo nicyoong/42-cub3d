@@ -25,7 +25,7 @@ void	init_cubed(t_game *game)
 	game->wall_prop.projected_wall = game->half_width / tan(FOV_ANGLE / 2);
 	game->player.rotate_speed = ROTATION_SPEED;
 	game->player.move_speed = MOVEMENT_SPEED;
-	game->params.texture = ft_calloc(sizeof(char *), 4);
+	game->params.texture = ft_calloc(sizeof(char *), 5);
 	if (!game->params.texture)
 		error("Failed texture calloc", game);
 }
@@ -55,7 +55,7 @@ void	error(char *msg, t_game *game)
 {
 	printf("Error\n%s.\n%s\n", msg, strerror(errno));
 	free_matrix((void **)game->params.map, 0);
-	free_matrix((void **)game->params.texture, 4);
+	free_matrix((void **)game->params.texture, 5);
 	free_matrix((void **)game->params.rgb[0], 0);
 	free_matrix((void **)game->params.rgb[1], 0);
 	cleanup_game(game);

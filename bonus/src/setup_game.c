@@ -1,4 +1,4 @@
-#include "cub3D.h"
+#include "../inc/cub3D.h"
 
 void	setup_game(t_game *game)
 {
@@ -45,6 +45,8 @@ void	set_texture(t_game *game)
 		game->params.texture[WE]);
 	status += set_sprite(game->wall_texture + EA, game->mlx, \
 		game->params.texture[EA]);
+	status += set_sprite(game->wall_texture + DO, game->mlx,
+        game->params.texture[DO]);
 	if (status != EXIT_SUCCESS)
 		error("Could not load textures", game);
 }

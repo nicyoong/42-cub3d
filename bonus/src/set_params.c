@@ -1,4 +1,4 @@
-#include "cub3D.h"
+#include "../inc/cub3D.h"
 
 int	is_texture(char *file, int *identifier)
 {
@@ -10,6 +10,8 @@ int	is_texture(char *file, int *identifier)
 		*identifier = WE;
 	else if (!ft_strncmp(file, "EA", 2))
 		*identifier = EA;
+	else if (!ft_strncmp(file, "DO", 2))
+		*identifier = DO;
 	else
 		return (0);
 	return (1);
@@ -42,7 +44,7 @@ void	set_params(t_game *game)
 			i += get_texture(game->file + i, identifier, game);
 		else if (is_color(game->file + i, &identifier))
 			i += get_env_color(game->file + i, identifier, game);
-		else if (!game->params.map && elements == 6)
+		else if (!game->params.map && elements == 7)
 		{
 			game->map_cub = game->file + i;
 			i += get_map(game->file + i, game);

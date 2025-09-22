@@ -26,7 +26,7 @@ void	cleanup_game(t_game *game)
 void	exit_game(t_game *game)
 {
 	free_matrix((void **)game->params.map, 0);
-	free_matrix((void **)game->params.texture, 4);
+	free_matrix((void **)game->params.texture, 5);
 	free_matrix((void **)game->params.rgb[0], 0);
 	free_matrix((void **)game->params.rgb[1], 0);
 	cleanup_game(game);

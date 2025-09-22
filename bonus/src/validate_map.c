@@ -39,7 +39,7 @@ int	row_validate(char **map, t_map_validation v)
 		v.column_limit[BOTTOM_LINE] = ft_strlen(map[v.line_num + 1]) - 1;
 	while (map[v.line_num][v.column])
 	{
-		if (!ft_strchr("0NEWS", map[v.line_num][v.column]))
+		if (!ft_strchr("0NEWSD", map[v.line_num][v.column]))
 		{
 			if (map[v.line_num][v.column] != '1' && v.is_closed_behind)
 				return (EXIT_FAILURE);

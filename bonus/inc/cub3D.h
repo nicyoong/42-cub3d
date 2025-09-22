@@ -79,8 +79,17 @@ enum e_direction{
 	NO,
 	SO,
 	WE,
-	EA
+	EA,
+	DO
 };
+
+typedef struct s_door
+{
+	int		x;
+	int		y;
+	float	state;
+	int		opening;
+}	t_door;
 
 typedef struct s_image
 {
@@ -131,6 +140,7 @@ typedef struct s_ray
 	bool	hit_vertical;
 	bool	ray_up;
 	bool	ray_left;
+	bool	is_door;
 }	t_ray;
 
 typedef struct s_params
