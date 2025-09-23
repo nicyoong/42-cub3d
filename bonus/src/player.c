@@ -1,4 +1,14 @@
-#include "cub3D.h"
+#include "../inc/cub3D.h"
+
+t_door	*find_door(t_game *game, int map_x, int map_y)
+{
+    for (int i = 0; i < game->door_count; i++)
+    {
+        if (game->doors[i]->x == map_x && game->doors[i]->y == map_y)
+            return game->doors[i];
+    }
+    return NULL;
+}
 
 int	has_wall(t_game *game, double x, double y)
 {
@@ -10,7 +20,21 @@ int	has_wall(t_game *game, double x, double y)
 	if (y < 0 || y > game->minimap_height || x < 0 || \
 		x > ft_strlen(game->params.map[line]) * TILE_SIZE)
 		return (1);
-	return (game->params.map[line][column] == '1');
+
+	if (game->params.map[line][column] == '1')
+		return (1);
+
+	if (game->params.map[line][column] == DOOR_TILE)
+	{
+		t_door *door = find_door(game, column, line);
+		if (door && door->state <= DOOR_MIN)
+			return (1);
+		if (door && door->state > DOOR_MIN && door->state < DOOR_MAX)
+			return (1);
+		return (0);
+	}
+
+	return (0);
 }
 
 int	collide_diagonal(t_game *game, double to_x, double to_y)

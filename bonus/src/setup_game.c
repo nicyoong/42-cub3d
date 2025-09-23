@@ -45,8 +45,11 @@ void	set_texture(t_game *game)
 		game->params.texture[WE]);
 	status += set_sprite(game->wall_texture + EA, game->mlx, \
 		game->params.texture[EA]);
-	status += set_sprite(game->wall_texture + D, game->mlx,
-        game->params.texture[D]);
+	if (game->params.texture[D])
+    	status += set_sprite(game->wall_texture + D, game->mlx,
+        	game->params.texture[D]);
+	else
+    	game->wall_texture[D].img = NULL;
 	if (status != EXIT_SUCCESS)
 		error("Could not load textures", game);
 }

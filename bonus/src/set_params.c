@@ -44,7 +44,7 @@ void	set_params(t_game *game)
 			i += get_texture(game->file + i, identifier, game);
 		else if (is_color(game->file + i, &identifier))
 			i += get_env_color(game->file + i, identifier, game);
-		else if (!game->params.map && elements == 7)
+		else if (!game->params.map && (elements == 6 || elements == 7))
 		{
 			game->map_cub = game->file + i;
 			i += get_map(game->file + i, game);

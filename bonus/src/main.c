@@ -28,6 +28,8 @@ void	init_cubed(t_game *game)
 	game->params.texture = ft_calloc(sizeof(char *), 5);
 	if (!game->params.texture)
 		error("Failed texture calloc", game);
+	game->doors = NULL;
+	game->door_count = 0;
 }
 
 int	init_graphics(t_game *game)

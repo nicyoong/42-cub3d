@@ -1,6 +1,6 @@
 
 
-#include "cub3D.h"
+#include "../inc/cub3D.h"
 
 int	press_key(int keycode, t_game *game)
 {
@@ -16,6 +16,8 @@ int	press_key(int keycode, t_game *game)
 		game->player.walk_direction = WALK_DOWN;
 	else if (keycode == 'w')
 		game->player.walk_direction = WALK_UP;
+	else if (keycode == 'e')
+		toggle_door(game);
 	else if (keycode == ESC)
 		exit_game(game);
 	else if (keycode == SHIFT)
