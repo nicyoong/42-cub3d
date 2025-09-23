@@ -1,11 +1,11 @@
 #include "../inc/cub3D.h"
 
-t_door	*find_door(t_game *game, int map_x, int map_y)
+t_door *find_door(t_game *game, int map_x, int map_y)
 {
     for (int i = 0; i < game->door_count; i++)
     {
-        if (game->doors[i]->x == map_x && game->doors[i]->y == map_y)
-            return game->doors[i];
+        if (game->doors[i].x == map_x && game->doors[i].y == map_y)
+            return &game->doors[i];
     }
     return NULL;
 }
