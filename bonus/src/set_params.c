@@ -10,8 +10,8 @@ int	is_texture(char *file, int *identifier)
 		*identifier = WE;
 	else if (!ft_strncmp(file, "EA", 2))
 		*identifier = EA;
-	else if (!ft_strncmp(file, "DO", 2))
-		*identifier = DO;
+	else if (!ft_strncmp(file, "D", 1))
+		*identifier = D;
 	else
 		return (0);
 	return (1);

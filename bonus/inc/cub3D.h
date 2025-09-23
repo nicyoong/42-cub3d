@@ -22,7 +22,7 @@
 # define TILE_SIZE				64
 # define WINDOW_WIDTH		1600
 # define WINDOW_HEIGHT		1000
-# define TEXTURES_NUM			4
+# define TEXTURES_NUM			5
 # define FOV_ANGLE				1.0471975511965977461542144610932
 # define ROTATION_SPEED 	0.03490658503988659153847381536977
 
@@ -80,7 +80,7 @@ enum e_direction{
 	SO,
 	WE,
 	EA,
-	DO
+	D
 };
 
 typedef struct s_door

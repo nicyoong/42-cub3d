@@ -13,7 +13,7 @@ void	char_player_validate(t_game *game)
 		j = 0;
 		while (game->params.map[i][j])
 		{
-			if (!ft_strchr("10NSEW ", game->params.map[i][j]))
+			if (!ft_strchr("10NSEWD", game->params.map[i][j]))
 				error("Invalid char on map", game);
 			if (ft_strchr("NSEW", game->params.map[i][j]))
 				player++;

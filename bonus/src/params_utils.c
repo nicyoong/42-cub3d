@@ -1,4 +1,4 @@
-#include "cub3D.h"
+#include "../inc/cub3D.h"
 
 int	get_map(char *file, t_game *game)
 {
@@ -43,20 +43,25 @@ int	get_env_color(char *file, int identifier, t_game *game)
 
 int	get_texture(char *file, int identifier, t_game *game)
 {
-	int		i;
-	int		n;
+	int	i;
+	int	n;
+	int	offset;
 
-	i = 2;
+	if (identifier == D)
+		offset = 1;
+	else
+		offset = 2;
+	i = offset;
 	while (ft_isspace(file[i]) && file[i] && file[i] != '\n')
 		i++;
-	if ((i - 2) == 0)
+	if ((i - offset) == 0)
 		error("Wrong identifier", game);
 	n = 0;
 	if (game->params.texture[identifier])
 		error("Duplicate Identifier", game);
 	while (file[n] != '\n' && file[n])
 		n++;
-	game->params.texture[identifier] = ft_substr(file + 3, 0, n - 3);
+	game->params.texture[identifier] = ft_substr(file + offset + 1, 0, n - (offset + 1));
 	if (!game->params.texture[identifier])
 		error("Failed texture malloc", game);
 	return (n);

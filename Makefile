@@ -6,7 +6,7 @@
 #    By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/10 12:53:22 by tching            #+#    #+#              #
-#    Updated: 2025/09/19 19:47:04 by nyoong           ###   ########.fr        #
+#    Updated: 2025/09/23 18:41:58 by nyoong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRCS	= $(addprefix $(SRC_DIR)/, \
 			walls.c)
 
 BONUS_SRCS = $(addprefix $(BONUS_SRC_DIR)/, \
+			doors.c \
 			environment.c \
 			exit_game.c \
 			free_utils.c \
