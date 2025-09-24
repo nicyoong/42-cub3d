@@ -63,6 +63,7 @@ void	draw_walls(t_game *game)
 	while (col < game->ray_num)
 	{
 		wall_dimension(game, col);
+		game->zbuffer[col] = game->wall_prop.ray_distance;
 		texture_prop(game, col);
 		current_img = texture_id(game, col);
 		line = game->texture_prop.y_offset;
