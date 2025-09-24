@@ -45,20 +45,18 @@ int	get_texture(char *file, int identifier, t_game *game)
 {
 	int	i;
 	int	n;
-	int	offset;
 
-	offset = 2;
-	i = offset;
+	i = 2;
 	while (ft_isspace(file[i]) && file[i] && file[i] != '\n')
 		i++;
-	if ((i - offset) == 0)
+	if ((i - 2) == 0)
 		error("Wrong identifier", game);
 	n = 0;
 	if (game->params.texture[identifier])
 		error("Duplicate Identifier", game);
 	while (file[n] != '\n' && file[n])
 		n++;
-	game->params.texture[identifier] = ft_substr(file + offset + 1, 0, n - (offset + 1));
+	game->params.texture[identifier] = ft_substr(file + 3, 0, n - 3);
 	if (!game->params.texture[identifier])
 		error("Failed texture malloc", game);
 	return (n);
