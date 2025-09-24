@@ -13,7 +13,7 @@ static void load_door_anim(t_game *game, t_door *door)
     if ( set_sprite(&door->anim.frames[0], game->mlx, "./assets/sky_wall01.XPM") ||
          set_sprite(&door->anim.frames[1], game->mlx, "./assets/sky_wall01.XPM") ||
          set_sprite(&door->anim.frames[2], game->mlx, "./assets/sky_wall01.XPM") ||
-         set_sprite(&door->anim.frames[3], game->mlx, "./assets/sky_wall01.XPM") )
+         set_sprite(&door->anim.frames[3], game->mlx, "./assets/bark01.XPM") )
         error("Could not load door frames", game);
 }
 
