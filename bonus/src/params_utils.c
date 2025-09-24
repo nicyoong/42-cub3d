@@ -47,10 +47,7 @@ int	get_texture(char *file, int identifier, t_game *game)
 	int	n;
 	int	offset;
 
-	if (identifier == D)
-		offset = 1;
-	else
-		offset = 2;
+	offset = 2;
 	i = offset;
 	while (ft_isspace(file[i]) && file[i] && file[i] != '\n')
 		i++;
