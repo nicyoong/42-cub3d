@@ -12,6 +12,10 @@ void	setup_game(t_game *game)
 	set_texture(game);
 	set_player(game);
 	set_rays(game);
+	register_doors(game);
+	game->zbuffer = malloc(sizeof(float) * game->ray_num);
+	if (!game->zbuffer)
+		error("zbuffer alloc failed", game);
 }
 
 void	set_window(t_game *game)
