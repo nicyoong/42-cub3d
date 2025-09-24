@@ -191,6 +191,7 @@ typedef struct s_game
 	t_image					wall_texture[TEXTURES_NUM];
 	t_door					*doors;
 	int						door_count;
+	float					*zbuffer;
 }	t_game;
 
 typedef struct s_resize_validation
