@@ -57,7 +57,7 @@ void	error(char *msg, t_game *game)
 {
 	printf("Error\n%s.\n%s\n", msg, strerror(errno));
 	free_matrix((void **)game->params.map, 0);
-	free_matrix((void **)game->params.texture, 5);
+	free_matrix((void **)game->params.texture, 4);
 	free_matrix((void **)game->params.rgb[0], 0);
 	free_matrix((void **)game->params.rgb[1], 0);
 	cleanup_game(game);
