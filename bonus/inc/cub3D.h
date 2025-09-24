@@ -82,19 +82,27 @@ enum e_direction{
 	EA
 };
 
+typedef struct s_image
+{
+	uint32_t	*buffer;
+	t_img		*img;
+}	t_image;
+
+typedef struct s_anim {
+    t_image   *frames;
+    int        frame_count;
+    int        current;
+    double     timer;
+} t_anim;
+
 typedef struct s_door
 {
 	int		x;
 	int		y;
 	float	state;
 	int		opening;
+	t_anim	anim;
 }	t_door;
-
-typedef struct s_image
-{
-	uint32_t	*buffer;
-	t_img		*img;
-}	t_image;
 
 typedef struct s_img_prop
 {
