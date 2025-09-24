@@ -138,3 +138,32 @@ void draw_doors_as_sprites(t_game *game)
 		draw_door_sprite(game, frame, world_x, world_y);
 	}
 }
+
+t_door *find_door(t_game *game, int map_x, int map_y)
+{
+    for (int i = 0; i < game->door_count; i++)
+        if (game->doors[i].x == map_x && game->doors[i].y == map_y)
+            return &game->doors[i];
+    return NULL;
+}
+
+void toggle_door(t_game *game)
+{
+    double px = game->player.xy.x / TILE_SIZE;
+    double py = game->player.xy.y / TILE_SIZE;
+
+    int front_x = (int)(px + cos(game->player.xy.angle) * DOOR_INTERACT_DIST);
+    int front_y = (int)(py + sin(game->player.xy.angle) * DOOR_INTERACT_DIST);
+
+    if (front_x < 0 || front_y < 0 ||
+        front_y >= (int)count_vectors((void**)game->params.map) ||
+        front_x >= (int)ft_strlen(game->params.map[front_y]))
+        return;
+
+    if (game->params.map[front_y][front_x] == DOOR_TILE) {
+        t_door *door = find_door(game, front_x, front_y);
+        if (!door) return;
+        if (door->state <= DOOR_MIN) door->opening = 1;   // start opening
+        else if (door->state >= DOOR_MAX) door->opening = -1; // start closing
+    }
+}
