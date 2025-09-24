@@ -2,7 +2,7 @@
 
 static void load_door_anim(t_game *game, t_door *door)
 {
-    const int frames = 4; // closed, opening1, opening2, open
+    const int frames = 4;
     door->anim.frames = malloc(sizeof(t_image) * frames);
     if (!door->anim.frames) error("Door frames alloc failed", game);
     door->anim.frame_count = frames;
@@ -10,10 +10,10 @@ static void load_door_anim(t_game *game, t_door *door)
     door->anim.timer = 0.0;
 
     // Replace these with your actual files:
-    if ( set_sprite(&door->anim.frames[0], game->mlx, "./assets/door_frame0.xpm") ||
-         set_sprite(&door->anim.frames[1], game->mlx, "./assets/door_frame1.xpm") ||
-         set_sprite(&door->anim.frames[2], game->mlx, "./assets/door_frame2.xpm") ||
-         set_sprite(&door->anim.frames[3], game->mlx, "./assets/door_frame3.xpm") )
+    if ( set_sprite(&door->anim.frames[0], game->mlx, "./assets/sky_wall01.XPM") ||
+         set_sprite(&door->anim.frames[1], game->mlx, "./assets/sky_wall01.XPM") ||
+         set_sprite(&door->anim.frames[2], game->mlx, "./assets/sky_wall01.XPM") ||
+         set_sprite(&door->anim.frames[3], game->mlx, "./assets/sky_wall01.XPM") )
         error("Could not load door frames", game);
 }
 
