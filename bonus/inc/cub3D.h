@@ -79,8 +79,7 @@ enum e_direction{
 	NO,
 	SO,
 	WE,
-	EA,
-	D
+	EA
 };
 
 typedef struct s_door
