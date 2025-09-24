@@ -9,7 +9,7 @@ int mouse_move(int x, int y, t_game *game)
 
     if (delta_x != 0)
     {
-        double sensitivity = 0.002;
+        double sensitivity = 0.001;
         game->player.xy.angle += delta_x * sensitivity;
         bound_angle(&game->player.xy.angle);
         mlx_mouse_move(game->mlx, game->window, center_x, game->window_height / 2);
