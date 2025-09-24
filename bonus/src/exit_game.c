@@ -1,6 +1,6 @@
 
 
-#include "cub3D.h"
+#include "../inc/cub3D.h"
 
 void	free_game(t_game *game)
 {
