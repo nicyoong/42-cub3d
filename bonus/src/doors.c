@@ -67,3 +67,74 @@ void update_doors(t_game *game)
         d->anim.current = idx;
     }
 }
+
+// Simple billboard sprite draw using zbuffer occlusion
+static void draw_door_sprite(t_game *game, t_image img, double sx, double sy)
+{
+	// Player orientation
+	double dirX = cos(game->player.xy.angle);
+	double dirY = sin(game->player.xy.angle);
+	double planeX =  cos(game->player.xy.angle + HALF_PI) * (FOV_ANGLE);
+	double planeY =  sin(game->player.xy.angle + HALF_PI) * (FOV_ANGLE);
+
+	// Translate sprite to camera space
+	double dx = sx - game->player.xy.x;
+	double dy = sy - game->player.xy.y;
+
+	// Inverse determinant for camera transform
+	double invDet = 1.0 / (planeX * dirY - dirX * planeY);
+
+	// Transform to camera space
+	double transformX = invDet * ( dirY * dx - dirX * dy);
+	double transformY = invDet * (-planeY * dx + planeX * dy);
+
+	if (transformY <= 0.0001) return; // behind camera
+
+	// Project to screen
+	int spriteScreenX = (int)(game->half_width * (1 + transformX / transformY));
+	int spriteHeight  = (int)fabs(game->wall_prop.projected_wall / transformY);
+	int spriteWidth   = spriteHeight;
+
+	int drawStartY = -spriteHeight / 2 + game->half_height;
+	if (drawStartY < 0) drawStartY = 0;
+	int drawEndY   =  spriteHeight / 2 + game->half_height;
+	if (drawEndY >= game->window_height) drawEndY = game->window_height - 1;
+
+	int drawStartX = -spriteWidth / 2 + spriteScreenX;
+	if (drawStartX < 0) drawStartX = 0;
+	int drawEndX   =  spriteWidth / 2 + spriteScreenX;
+	if (drawEndX >= game->window_width) drawEndX = game->window_width - 1;
+
+	// Draw with depth test
+	for (int stripe = drawStartX; stripe <= drawEndX; stripe++) {
+		int texX = (int)((stripe - (-spriteWidth/2 + spriteScreenX)) * img.img->width / (double)spriteWidth);
+
+		// Occlusion: only draw if in front of wall at this column
+		if (stripe >= 0 && stripe < game->window_width && transformY < game->zbuffer[stripe]) {
+			for (int y = drawStartY; y <= drawEndY; y++) {
+				int d = (y - (-spriteHeight/2 + game->half_height));
+				int texY = (int)(d * img.img->height / (double)spriteHeight);
+				uint32_t color = get_color(img, texX, texY);
+
+				// Optional transparency check (depends on your XPMs)
+				if ((color & 0xFF000000) != TRANSPARENCY)
+					draw_px(game->img, stripe, y, color);
+			}
+		}
+	}
+}
+
+// Public: draw all doors as sprites (call this after draw_walls)
+void draw_doors_as_sprites(t_game *game)
+{
+	for (int i = 0; i < game->door_count; i++) {
+		t_door *d = &game->doors[i];
+		t_image frame = d->anim.frames[d->anim.current];
+
+		// Center of door tile in world coords
+		double world_x = (d->x + 0.5) * TILE_SIZE;
+		double world_y = (d->y + 0.5) * TILE_SIZE;
+
+		draw_door_sprite(game, frame, world_x, world_y);
+	}
+}

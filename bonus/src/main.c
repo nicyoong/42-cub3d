@@ -35,9 +35,11 @@ void	init_cubed(t_game *game)
 int	init_graphics(t_game *game)
 {
 	player_movement(game);
+	update_doors(game);
 	cast_all_rays(game);
 	draw_cf(game);
 	draw_walls(game);
+	draw_doors_as_sprites(game);
 	mlx_do_sync(game->mlx);
 	mlx_put_image_to_window(game->mlx, game->window, game->img.img, 0, 0);
 	return (0);
