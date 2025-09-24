@@ -14,6 +14,8 @@ void	cleanup_game(t_game *game)
 	if (game->img.img)
 		mlx_destroy_image(game->mlx, game->img.img);
 	cleanup_sprites(game->wall_texture, game->mlx, TEXTURES_NUM);
+	cleanup_doors(game);
+	cleanup_zbuffer(game);
 	if (game->window)
 		mlx_destroy_window(game->mlx, game->window);
 	if (game->mlx)

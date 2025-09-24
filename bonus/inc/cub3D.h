@@ -244,6 +244,8 @@ void	update_doors(t_game *game);
 void	draw_doors_as_sprites(t_game *game);
 t_door	*find_door(t_game *game, int map_x, int map_y);
 void	toggle_door(t_game *game);
+void	cleanup_doors(t_game *game);
+void	cleanup_zbuffer(t_game *game);
 
 int		mouse_move(int x, int y, t_game *game);
 
