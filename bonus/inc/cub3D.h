@@ -240,6 +240,7 @@ void    setup_game(t_game *game);
 void	set_params(t_game *game);
 
 void    register_doors(t_game *game);
+void	update_doors(t_game *game);
 
 int		mouse_move(int x, int y, t_game *game);
 

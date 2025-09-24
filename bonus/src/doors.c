@@ -48,3 +48,22 @@ void register_doors(t_game *game)
         }
     }
 }
+
+void update_doors(t_game *game)
+{
+    for (int i = 0; i < game->door_count; i++) {
+        t_door *d = &game->doors[i];
+
+        if (d->opening == 1 && d->state < DOOR_MAX)       d->state += DOOR_SPEED;
+        else if (d->opening == -1 && d->state > DOOR_MIN)  d->state -= DOOR_SPEED;
+
+        if (d->state >= DOOR_MAX) { d->state = DOOR_MAX; d->opening = 0; }
+        if (d->state <= DOOR_MIN) { d->state = DOOR_MIN; d->opening = 0; }
+
+        // map state [0,1] to frame index 0..(n-1)
+        int idx = (int)(d->state * (d->anim.frame_count - 1) + 0.5);
+        if (idx < 0) idx = 0;
+        if (idx >= d->anim.frame_count) idx = d->anim.frame_count - 1;
+        d->anim.current = idx;
+    }
+}
