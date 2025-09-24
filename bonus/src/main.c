@@ -25,7 +25,7 @@ void	init_cubed(t_game *game)
 	game->wall_prop.projected_wall = game->half_width / tan(FOV_ANGLE / 2);
 	game->player.rotate_speed = ROTATION_SPEED;
 	game->player.move_speed = MOVEMENT_SPEED;
-	game->params.texture = ft_calloc(sizeof(char *), 5);
+	game->params.texture = ft_calloc(sizeof(char *), 4);
 	if (!game->params.texture)
 		error("Failed texture calloc", game);
 	game->doors = NULL;
