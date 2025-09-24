@@ -2,8 +2,6 @@
 
 t_image	texture_id(t_game *game, int col)
 {
-	if (game->rays[col].is_door)
-        return (game->wall_texture[D]);
 	if (game->rays[col].hit_vertical)
 	{
 		if (game->rays[col].ray_left)
