@@ -108,6 +108,8 @@ static void draw_door_sprite(t_game *game, t_image img, double sx, double sy)
 	// Draw with depth test
 	for (int stripe = drawStartX; stripe <= drawEndX; stripe++) {
 		int texX = (int)((stripe - (-spriteWidth/2 + spriteScreenX)) * img.img->width / (double)spriteWidth);
+        if (texX < 0) texX = 0;
+        if (texX >= img.img->width) texX = img.img->width - 1;
 
 		// Occlusion: only draw if in front of wall at this column
 		if (stripe >= 0 && stripe < game->window_width && transformY < game->zbuffer[stripe]) {
