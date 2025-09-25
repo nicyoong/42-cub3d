@@ -1,4 +1,4 @@
-#include "cub3D.h"
+#include "../inc/cub3D.h"
 
 void	construct_ray(t_ray *ray)
 {
@@ -30,7 +30,7 @@ void	vertical_cast(t_game *game, t_rays_prop *v, t_ray *ray)
 	while (v->x_int >= 0 && v->x_int < game->minimap_width
 		&& v->y_int >= 0 && v->y_int < game->minimap_height)
 	{
-		if (has_wall(game, v->x_int - ray->ray_left, \
+		if (has_wall_for_raycast(game, v->x_int - ray->ray_left, \
 			v->y_int))
 		{
 			v->is_hit = true;
@@ -58,7 +58,7 @@ void	horizontal_cast(t_game *game, t_rays_prop *h, t_ray *ray)
 	while (h->x_int >= 0 && h->x_int < game->minimap_width
 		&& h->y_int >= 0 && h->y_int < game->minimap_height)
 	{
-		if (has_wall(game, h->x_int, h->y_int - \
+		if (has_wall_for_raycast(game, h->x_int, h->y_int - \
 			ray->ray_up))
 		{
 			h->is_hit = true;

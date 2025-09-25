@@ -257,7 +257,8 @@ size_t  get_max_ls(char **map);
 int press_key(int keycode, t_game *game);
 int release_key(int keycode, t_game *game);
 
-int has_wall(t_game *game, double x, double y);
+int has_wall_for_raycast(t_game *game, double x, double y);
+int is_blocking_tile(t_game *game, int col, int row);
 int collide_diagonal(t_game *game, double to_x, double to_y);
 void    calculate_next_step(t_game *game, int move, int side_move);
 void    bound_angle(double *angle);
