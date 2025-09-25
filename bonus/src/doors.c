@@ -114,6 +114,8 @@ static void draw_door_sprite(t_game *game, t_image img, double sx, double sy)
 			for (int y = drawStartY; y <= drawEndY; y++) {
 				int d = (y - (-spriteHeight/2 + game->half_height));
 				int texY = (int)(d * img.img->height / (double)spriteHeight);
+                if (texY < 0) texY = 0;
+                if (texY >= img.img->height) texY = img.img->height - 1;
 				uint32_t color = get_color(img, texX, texY);
 
 				// Optional transparency check (depends on your XPMs)
