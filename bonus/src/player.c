@@ -75,7 +75,7 @@ void	calculate_next_step(t_game *game, int move_step, int side_move)
 		margin_y = -16;
 	to_x += game->player.xy.x;
 	to_y += game->player.xy.y;
-	if (!has_wall(game, to_x + margin_x, to_y + margin_y) && \
+	if (!is_blocking_tile(game, to_x + margin_x, to_y + margin_y) && \
 		!collide_diagonal(game, to_x + margin_x, to_y + margin_y))
 	{
 		game->player.xy.x = to_x;
