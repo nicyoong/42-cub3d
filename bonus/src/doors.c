@@ -92,8 +92,8 @@ static void draw_door_sprite(t_game *game, t_image img, double sx, double sy)
 
 	// Project to screen
 	int spriteScreenX = (int)(game->half_width * (1 + transformX / transformY));
-	int spriteHeight  = (int)fabs(game->wall_prop.projected_wall / transformY);
-	int spriteWidth   = spriteHeight;
+	int spriteHeight = (int)((TILE_SIZE / transformY) * game->wall_prop.projected_wall);
+    int spriteWidth  = spriteHeight * img.img->width / img.img->height;
 
 	int drawStartY = -spriteHeight / 2 + game->half_height;
 	if (drawStartY < 0) drawStartY = 0;

@@ -1,26 +1,46 @@
 #include "../inc/cub3D.h"
 
-int	has_wall(t_game *game, double x, double y)
+// Used by raycasting (draw_walls)
+// Only solid walls block rays. Doors are drawn as sprites, so don't stop rays here.
+int has_wall_for_raycast(t_game *game, double x, double y)
 {
-	int col = (int)floor(x / TILE_SIZE);
-	int row = (int)floor(y / TILE_SIZE);
+    int col = (int)floor(x / TILE_SIZE);
+    int row = (int)floor(y / TILE_SIZE);
 
-	if (row < 0 || row >= (int)count_vectors((void**)game->params.map))
-		return 1;
-	if (col < 0 || col >= (int)ft_strlen(game->params.map[row]))
-		return 1;
-	char tile = game->params.map[row][col];
-	if (tile == '1')
-		return 1;
-	if (tile == DOOR_TILE) {
-		for (int i = 0; i < game->door_count; i++) {
-			if (game->doors[i].x == col && game->doors[i].y == row) {
-				return (game->doors[i].state < DOOR_MAX);
-			}
-		}
-		return 1;
-	}
-	return 0;
+    if (row < 0 || row >= (int)count_vectors((void**)game->params.map))
+        return 1;
+    if (col < 0 || col >= (int)ft_strlen(game->params.map[row]))
+        return 1;
+
+    char tile = game->params.map[row][col];
+    return (tile == '1');   // <— only walls
+}
+
+// Used by player movement and collision
+// Both walls and (closed/closing) doors block the player
+int has_blocking_tile(t_game *game, double x, double y)
+{
+    int col = (int)floor(x / TILE_SIZE);
+    int row = (int)floor(y / TILE_SIZE);
+
+    if (row < 0 || row >= (int)count_vectors((void**)game->params.map))
+        return 1;
+    if (col < 0 || col >= (int)ft_strlen(game->params.map[row]))
+        return 1;
+
+    char tile = game->params.map[row][col];
+    if (tile == '1')
+        return 1;
+    if (tile == DOOR_TILE)
+    {
+        for (int i = 0; i < game->door_count; i++) {
+            if (game->doors[i].x == col && game->doors[i].y == row) {
+                // Block if the door is not fully open
+                return (game->doors[i].state < DOOR_MAX);
+            }
+        }
+    }
+    return 0;
 }
 
 int	collide_diagonal(t_game *game, double to_x, double to_y)
@@ -32,9 +52,9 @@ int	collide_diagonal(t_game *game, double to_x, double to_y)
 	y_diff = to_y - game->player.xy.y;
 	if (fabs(x_diff) <= TILE_SIZE && fabs(y_diff) <= TILE_SIZE)
 	{
-		if (has_wall(game, to_x - x_diff, to_y))
+		if (has_blocking_tile(game, to_x - x_diff, to_y))
 			return (1);
-		if (has_wall(game, to_x, to_y - y_diff))
+		if (has_blocking_tile(game, to_x, to_y - y_diff))
 			return (1);
 	}
 	return (0);
@@ -59,7 +79,7 @@ void	calculate_next_step(t_game *game, int move_step, int side_move)
 		margin_y = -16;
 	to_x += game->player.xy.x;
 	to_y += game->player.xy.y;
-	if (!is_blocking_tile(game, to_x + margin_x, to_y + margin_y) && \
+	if (!has_blocking_tile(game, to_x + margin_x, to_y + margin_y) && \
 		!collide_diagonal(game, to_x + margin_x, to_y + margin_y))
 	{
 		game->player.xy.x = to_x;
