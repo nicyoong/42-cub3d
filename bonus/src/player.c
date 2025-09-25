@@ -41,19 +41,23 @@ int is_blocking_tile(t_game *game, int col, int row)
 
 int	collide_diagonal(t_game *game, double to_x, double to_y)
 {
-	double		x_diff;
-	double		y_diff;
+	double	x_diff = to_x - game->player.xy.x;
+	double	y_diff = to_y - game->player.xy.y;
 
-	x_diff = to_x - game->player.xy.x;
-	y_diff = to_y - game->player.xy.y;
 	if (fabs(x_diff) <= TILE_SIZE && fabs(y_diff) <= TILE_SIZE)
 	{
-		if (has_wall(game, to_x - x_diff, to_y))
-			return (1);
-		if (has_wall(game, to_x, to_y - y_diff))
-			return (1);
+		// Check side tiles with is_blocking_tile()
+		int col_x = (int)((to_x - x_diff) / TILE_SIZE);
+		int row_x = (int)(to_y / TILE_SIZE);
+		if (is_blocking_tile(game, col_x, row_x))
+			return 1;
+
+		int col_y = (int)(to_x / TILE_SIZE);
+		int row_y = (int)((to_y - y_diff) / TILE_SIZE);
+		if (is_blocking_tile(game, col_y, row_y))
+			return 1;
 	}
-	return (0);
+	return 0;
 }
 
 void	calculate_next_step(t_game *game, int move_step, int side_move)
