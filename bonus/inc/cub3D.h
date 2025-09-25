@@ -211,6 +211,35 @@ typedef struct s_map_validation
 	size_t	total_lines;
 }	t_map_validation;
 
+typedef struct s_camera
+{
+	double	dirX;
+	double	dirY;
+	double	planeX;
+	double	planeY;
+}	t_camera;
+
+typedef struct s_vec2d
+{
+	double	x;
+	double	y;
+}	t_vec2d;
+
+typedef struct s_spriteproj
+{
+	int	screenX;
+	int	width;
+	int	height;
+}	t_spriteproj;
+
+typedef struct
+{
+	int	startX;
+	int	endX;
+	int	startY;
+	int	endY;
+}	t_drawrect;
+
 void    init_cubed(t_game *game);
 int     init_graphics(t_game *game);
 void    start_cubed(t_game *game);
