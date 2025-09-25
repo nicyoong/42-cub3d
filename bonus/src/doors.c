@@ -10,10 +10,10 @@ static void load_door_anim(t_game *game, t_door *door)
     door->anim.timer = 0.0;
 
     // Replace these with your actual files:
-    if ( set_sprite(&door->anim.frames[0], game->mlx, "./assets/doorwall.xpm") ||
-         set_sprite(&door->anim.frames[1], game->mlx, "./assets/doorwall.xpm") ||
-         set_sprite(&door->anim.frames[2], game->mlx, "./assets/doorwall.xpm") ||
-         set_sprite(&door->anim.frames[3], game->mlx, "./assets/bark01.XPM") )
+    if ( set_sprite(&door->anim.frames[0], game->mlx, "./assets/door_close.XPM") ||
+         set_sprite(&door->anim.frames[1], game->mlx, "./assets/door_open1.XPM") ||
+         set_sprite(&door->anim.frames[2], game->mlx, "./assets/door_open2.XPM") ||
+         set_sprite(&door->anim.frames[3], game->mlx, "./assets/door_openfull.XPM") )
         error("Could not load door frames", game);
 }
 
