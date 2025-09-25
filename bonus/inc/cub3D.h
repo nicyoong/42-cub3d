@@ -53,7 +53,7 @@
 # define DOOR_SPEED       0.08
 # define DOOR_MAX         1.0
 # define DOOR_MIN         0.0
-# define DOOR_INTERACT_DIST 1.2
+# define DOOR_INTERACT_DIST 1.5
 
 enum e_level{
 	HORIZONTAL,
