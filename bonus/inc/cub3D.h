@@ -6,7 +6,7 @@
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 19:15:05 by nyoong            #+#    #+#             */
-/*   Updated: 2025/09/26 20:00:25 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/26 20:05:46 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,8 +311,6 @@ double			inv_det(const t_camera *c);
 t_vec2d			camera_space(const t_vec2d *d,
 					const t_camera *c, double invDet);
 
-void			draw_sprite_columns(t_game *game, t_image img,
-					const t_spriteproj *p, const t_drawrect *r, double depth);
 void			draw_door_sprite(t_game *game,
 					t_image img, double sx, double sy);
 
