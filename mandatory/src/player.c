@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/26 22:15:04 by tching            #+#    #+#             */
+/*   Updated: 2025/09/26 22:35:42 by tching           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 int	has_wall(t_game *game, double x, double y)
@@ -7,8 +19,8 @@ int	has_wall(t_game *game, double x, double y)
 
 	column = (int)floor((x / TILE_SIZE));
 	line = (int)floor((y / TILE_SIZE));
-	if (y < 0 || y > game->minimap_height || x < 0 || \
-		x > ft_strlen(game->params.map[line]) * TILE_SIZE)
+	if (y < 0 || y > game->minimap_height || x < 0
+		|| x > ft_strlen(game->params.map[line]) * TILE_SIZE)
 		return (1);
 	return (game->params.map[line][column] == '1');
 }
@@ -49,8 +61,8 @@ void	calculate_next_step(t_game *game, int move_step, int side_move)
 		margin_y = -16;
 	to_x += game->player.xy.x;
 	to_y += game->player.xy.y;
-	if (!has_wall(game, to_x + margin_x, to_y + margin_y) && \
-		!collide_diagonal(game, to_x + margin_x, to_y + margin_y))
+	if (!has_wall(game, to_x + margin_x, to_y + margin_y)
+		&& !collide_diagonal(game, to_x + margin_x, to_y + margin_y))
 	{
 		game->player.xy.x = to_x;
 		game->player.xy.y = to_y;
@@ -71,7 +83,8 @@ void	player_movement(t_game *game)
 
 	if (game->player.move_direction)
 	{
-		game->player.xy.angle += game->player.move_direction * game->player.rotate_speed;
+		game->player.xy.angle += game->player.move_direction
+			* game->player.rotate_speed;
 		bound_angle(&game->player.xy.angle);
 	}
 	if (game->player.side_direction || game->player.walk_direction)
@@ -86,7 +99,3 @@ void	player_movement(t_game *game)
 		calculate_next_step(game, move, side);
 	}
 }
-
-
-
-

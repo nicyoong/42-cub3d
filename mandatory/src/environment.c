@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   environment.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/26 22:14:15 by tching            #+#    #+#             */
+/*   Updated: 2025/09/26 22:41:06 by tching           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 uint32_t	put_shade(uint32_t color, double scale)
@@ -37,11 +49,10 @@ void	rectangle(t_image image, t_img_prop *prop)
 		i = 0;
 		while (i < prop->width)
 		{
-			draw_px(image, \
-				prop->x_offset + i, \
-				prop->y_offset + j, \
-				prop->color \
-			);
+			draw_px(image,
+				prop->x_offset + i,
+				prop->y_offset + j,
+				prop->color);
 			i++;
 		}
 		j++;

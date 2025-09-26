@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   params_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/26 22:18:29 by tching            #+#    #+#             */
+/*   Updated: 2025/09/26 22:47:44 by tching           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 int	get_map(char *file, t_game *game)
@@ -61,5 +73,3 @@ int	get_texture(char *file, int identifier, t_game *game)
 		error("Failed texture malloc", game);
 	return (n);
 }
-
-

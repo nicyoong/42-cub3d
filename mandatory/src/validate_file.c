@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate_file.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/26 22:16:26 by tching            #+#    #+#             */
+/*   Updated: 2025/09/26 22:48:44 by tching           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 void	char_player_validate(t_game *game)
@@ -40,8 +52,8 @@ void	color_validate(t_game *game, int env)
 	{
 		j = -1;
 		while (game->params.rgb[env][i][++j])
-			if (!ft_isspace(game->params.rgb[env][i][j]) && \
-				!ft_isdigit(game->params.rgb[env][i][j]))
+			if (!ft_isspace(game->params.rgb[env][i][j])
+				&& !ft_isdigit(game->params.rgb[env][i][j]))
 				error("Invalid identifier", game);
 		color = ft_atoi(game->params.rgb[env][i]);
 		if (color < 0 || color > 255)

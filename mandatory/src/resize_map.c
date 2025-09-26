@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   resize_map.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/26 22:18:39 by tching            #+#    #+#             */
+/*   Updated: 2025/09/26 23:01:36 by tching           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 void	reverse_matrix(char **ptr)
@@ -26,18 +38,18 @@ int	walls_and_spaces(char *map_line)
 
 int	is_invalid_tile(char **map, t_resize_validation v)
 {
-	if (map[v.line][v.counter] == '0' || \
-		(!v.counter || ft_strchr("0NEWS", map[v.line][v.counter - 1])))
+	if (map[v.line][v.counter] == '0'
+		|| (!v.counter || ft_strchr("0NEWS", map[v.line][v.counter - 1])))
 		return (0);
 	if (v.line)
 		if (v.counter <= v.column_limit[TOP_LINE])
-			if (ft_strchr("0NEWS", map[v.line - 1][v.counter]) || \
-				ft_strchr("0NEWS", map[v.line - 1][v.counter - 1]))
+			if (ft_strchr("0NEWS", map[v.line - 1][v.counter])
+				|| ft_strchr("0NEWS", map[v.line - 1][v.counter - 1]))
 				return (0);
 	if (v.line < v.total_lines)
 		if (v.counter <= v.column_limit[BOTTOM_LINE])
-			if (ft_strchr("0NEWS", map[v.line + 1][v.counter]) || \
-				ft_strchr("0NEWS", map[v.line + 1][v.counter - 1]))
+			if (ft_strchr("0NEWS", map[v.line + 1][v.counter])
+				|| ft_strchr("0NEWS", map[v.line + 1][v.counter - 1]))
 				return (0);
 	return (1);
 }
@@ -67,7 +79,7 @@ void	resize_row(t_game *game)
 void	resize_column(t_game *game)
 {
 	t_resize_validation	v;
-	char			*tmp;
+	char				*tmp;
 
 	v.line = -1;
 	v.total_lines = count_vectors((void **)game->params.map) - 1;
@@ -75,9 +87,11 @@ void	resize_column(t_game *game)
 	{
 		v.counter = ft_strlen(game->params.map[v.line]) - 1;
 		if (v.line)
-			v.column_limit[TOP_LINE] = ft_strlen(game->params.map[v.line - 1]) - 1;
+			v.column_limit[TOP_LINE] = ft_strlen(
+					game->params.map[v.line - 1]) - 1;
 		if (v.line < v.total_lines)
-			v.column_limit[BOTTOM_LINE] = ft_strlen(game->params.map[v.line + 1]) - 1;
+			v.column_limit[BOTTOM_LINE] = ft_strlen(
+					game->params.map[v.line + 1]) - 1;
 		while (is_invalid_tile(game->params.map, v))
 			v.counter--;
 		if (v.counter == ft_strlen(game->params.map[v.line]) - 1)
@@ -87,6 +101,3 @@ void	resize_column(t_game *game)
 		game->params.map[v.line] = tmp;
 	}
 }
-
-
-

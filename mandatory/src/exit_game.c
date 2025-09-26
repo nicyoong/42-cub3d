@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit_game.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/26 22:15:52 by tching            #+#    #+#             */
+/*   Updated: 2025/09/26 22:40:21 by tching           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cub3D.h"
 
@@ -40,7 +50,6 @@ int	close_window(t_game *game)
 	exit_game(game);
 	return (0);
 }
-
 
 void	cleanup_sprites(t_image *images, void *mlx, int x)
 {
