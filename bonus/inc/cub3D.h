@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/26 19:15:05 by nyoong            #+#    #+#             */
+/*   Updated: 2025/09/26 19:21:52 by nyoong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -55,27 +67,32 @@
 # define DOOR_MIN         0.0
 # define DOOR_INTERACT_DIST 1.5
 
-enum e_level{
+enum e_level
+{
 	HORIZONTAL,
 	VERTICAL
 };
 
-enum e_axis{
+enum e_axis
+{
 	x,
 	y
 };
 
-enum e_column_max{
+enum e_column_max
+{
 	TOP_LINE,
 	BOTTOM_LINE
 };
 
-enum e_env{
+enum e_env
+{
 	CEILING,
 	FLOOR
 };
 
-enum e_direction{
+enum e_direction
+{
 	NO,
 	SO,
 	WE,
@@ -88,12 +105,13 @@ typedef struct s_image
 	t_img		*img;
 }	t_image;
 
-typedef struct s_anim {
-    t_image   *frames;
-    int        frame_count;
-    int        current;
-    double     timer;
-} t_anim;
+typedef struct s_anim
+{
+	t_image	*frames;
+	int		frame_count;
+	int		current;
+	double	timer;
+}	t_anim;
 
 typedef struct s_door
 {
@@ -170,28 +188,28 @@ typedef struct s_wall_prop
 
 typedef struct s_game
 {
-	t_xvar					*mlx;
-	t_win_list				*window;
-	int						window_width;
-	int						window_height;
-	int						minimap_height;
-	int						minimap_width;
-	long					half_height;
-	long					half_width;
-	long					ray_num;
-	char					*file;
-	char					*map_cub;
-	t_ray					*rays;
-	t_rays_prop				ray_prop[2];
-	t_img_prop				texture_prop;
-	t_wall_prop				wall_prop;
-	t_player				player;
-	t_params				params;
-	t_image					img;
-	t_image					wall_texture[TEXTURES_NUM];
-	t_door					*doors;
-	int						door_count;
-	float					*zbuffer;
+	t_xvar		*mlx;
+	t_win_list	*window;
+	int			window_width;
+	int			window_height;
+	int			minimap_height;
+	int			minimap_width;
+	long		half_height;
+	long		half_width;
+	long		ray_num;
+	char		*file;
+	char		*map_cub;
+	t_ray		*rays;
+	t_rays_prop	ray_prop[2];
+	t_img_prop	texture_prop;
+	t_wall_prop	wall_prop;
+	t_player	player;
+	t_params	params;
+	t_image		img;
+	t_image		wall_texture[TEXTURES_NUM];
+	t_door		*doors;
+	int			door_count;
+	float		*zbuffer;
 }	t_game;
 
 typedef struct s_resize_validation
@@ -213,10 +231,10 @@ typedef struct s_map_validation
 
 typedef struct s_camera
 {
-	double	dirX;
-	double	dirY;
-	double	planeX;
-	double	planeY;
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
 }	t_camera;
 
 typedef struct s_vec2d
@@ -227,17 +245,17 @@ typedef struct s_vec2d
 
 typedef struct s_spriteproj
 {
-	int	screenX;
+	int	screenx;
 	int	width;
 	int	height;
 }	t_spriteproj;
 
-typedef struct
+typedef struct s_drawrect
 {
-	int	startX;
-	int	endX;
-	int	startY;
-	int	endY;
+	int	startx;
+	int	endx;
+	int	starty;
+	int	endy;
 }	t_drawrect;
 
 void			init_cubed(t_game *game);
@@ -254,7 +272,7 @@ void			exit_game(t_game *game);
 int				close_window(t_game *game);
 double			hypotenuse(double x, double y);
 
-int				file_check(int argc,char *argv);
+int				file_check(int argc, char *argv);
 void			open_file(t_game *game, int argc, char *argv);
 
 int				get_map(char *file, t_game *game);
@@ -269,7 +287,7 @@ void			setup_game(t_game *game);
 void			set_params(t_game *game);
 
 t_spriteproj	project_sprite(const t_game *game,
-	const t_vec2d *t, t_image img);
+					const t_vec2d *t, t_image img);
 t_drawrect		draw_rect(const t_game *game, const t_spriteproj *p);
 int				tex_x_for_stripe(int stripe, const t_spriteproj *p, int texW);
 int				tex_y_for_y(int y, const t_game *game,

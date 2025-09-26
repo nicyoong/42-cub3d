@@ -6,13 +6,13 @@
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 19:04:17 by nyoong            #+#    #+#             */
-/*   Updated: 2025/09/26 19:04:32 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/26 19:19:37 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
 
-int has_wall_for_raycast(t_game *game, double x, double y)
+int	has_wall_for_raycast(t_game *game, double x, double y)
 {
 	int		col;
 	int		row;
@@ -28,7 +28,7 @@ int has_wall_for_raycast(t_game *game, double x, double y)
 	return (tile == '1');
 }
 
-int has_blocking_tile(t_game *game, double x, double y)
+int	has_blocking_tile(t_game *game, double x, double y)
 {
 	int		col;
 	int		row;
@@ -43,7 +43,7 @@ int has_blocking_tile(t_game *game, double x, double y)
 		return (1);
 	tile = game->params.map[row][col];
 	if (tile == '1')
-		return 1;
+		return (1);
 	if (tile == DOOR_TILE)
 	{
 		i = 0;
@@ -54,7 +54,7 @@ int has_blocking_tile(t_game *game, double x, double y)
 			i++;
 		}
 	}
-    return (0);
+	return (0);
 }
 
 int	collide_diagonal(t_game *game, double to_x, double to_y)

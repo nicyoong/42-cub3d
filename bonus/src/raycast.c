@@ -29,8 +29,8 @@ void	vertical_cast(t_game *game, t_rays_prop *v, t_ray *ray)
 {
 	v->x_int = floor(game->player.xy.x / TILE_SIZE) * TILE_SIZE;
 	v->x_int += !ray->ray_left * TILE_SIZE;
-	v->y_int = game->player.xy.y + \
-		(v->x_int - game->player.xy.x) * tan(ray->xy.angle);
+	v->y_int = game->player.xy.y
+		+ (v->x_int - game->player.xy.x) * tan(ray->xy.angle);
 	v->x_step = TILE_SIZE;
 	if (ray->ray_left == true)
 		v->x_step *= -1;
@@ -42,8 +42,8 @@ void	vertical_cast(t_game *game, t_rays_prop *v, t_ray *ray)
 	while (v->x_int >= 0 && v->x_int < game->minimap_width
 		&& v->y_int >= 0 && v->y_int < game->minimap_height)
 	{
-		if (has_wall_for_raycast(game, v->x_int - ray->ray_left, \
-			v->y_int))
+		if (has_wall_for_raycast(game, v->x_int - ray->ray_left,
+				v->y_int))
 		{
 			v->is_hit = true;
 			break ;
@@ -57,8 +57,8 @@ void	horizontal_cast(t_game *game, t_rays_prop *h, t_ray *ray)
 {
 	h->y_int = floor(game->player.xy.y / TILE_SIZE) * TILE_SIZE;
 	h->y_int += !ray->ray_up * TILE_SIZE;
-	h->x_int = game->player.xy.x + \
-		(h->y_int - game->player.xy.y) / tan(ray->xy.angle);
+	h->x_int = game->player.xy.x
+		+ (h->y_int - game->player.xy.y) / tan(ray->xy.angle);
 	h->y_step = TILE_SIZE;
 	if (ray->ray_up == true)
 		h->y_step *= -1;
@@ -70,8 +70,8 @@ void	horizontal_cast(t_game *game, t_rays_prop *h, t_ray *ray)
 	while (h->x_int >= 0 && h->x_int < game->minimap_width
 		&& h->y_int >= 0 && h->y_int < game->minimap_height)
 	{
-		if (has_wall_for_raycast(game, h->x_int, h->y_int - \
-			ray->ray_up))
+		if (has_wall_for_raycast(game, h->x_int, h->y_int
+				- ray->ray_up))
 		{
 			h->is_hit = true;
 			break ;
@@ -86,13 +86,13 @@ void	calculate_distance(t_game *game, t_ray *ray)
 	int	d;
 
 	if (game->ray_prop[HORIZONTAL].is_hit == true)
-		game->ray_prop[HORIZONTAL].hypo = hypotenuse(\
-			(game->ray_prop[HORIZONTAL].x_int - game->player.xy.x), \
-			(game->ray_prop[HORIZONTAL].y_int - game->player.xy.y));
+		game->ray_prop[HORIZONTAL].hypo = hypotenuse(
+				(game->ray_prop[HORIZONTAL].x_int - game->player.xy.x),
+				(game->ray_prop[HORIZONTAL].y_int - game->player.xy.y));
 	if (game->ray_prop[VERTICAL].is_hit == true)
-		game->ray_prop[VERTICAL].hypo = hypotenuse(\
-			(game->ray_prop[VERTICAL].x_int - game->player.xy.x), \
-			(game->ray_prop[VERTICAL].y_int - game->player.xy.y));
+		game->ray_prop[VERTICAL].hypo = hypotenuse(
+				(game->ray_prop[VERTICAL].x_int - game->player.xy.x),
+				(game->ray_prop[VERTICAL].y_int - game->player.xy.y));
 	d = game->ray_prop[VERTICAL].hypo < game->ray_prop[HORIZONTAL].hypo;
 	ray->xy.x = game->ray_prop[d].x_int;
 	ray->xy.y = game->ray_prop[d].y_int;

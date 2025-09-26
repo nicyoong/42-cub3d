@@ -6,7 +6,7 @@
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 18:42:49 by nyoong            #+#    #+#             */
-/*   Updated: 2025/09/26 18:43:00 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/26 19:19:32 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ t_camera	make_camera(const t_game *game)
 
 	a = game->player.xy.angle;
 	pa = a + HALF_PI;
-	c.dirX = cos(a);
-	c.dirY = sin(a);
-	c.planeX = cos(pa) * (FOV_ANGLE);
-	c.planeY = sin(pa) * (FOV_ANGLE);
+	c.dirx = cos(a);
+	c.diry = sin(a);
+	c.planex = cos(pa) * (FOV_ANGLE);
+	c.planey = sin(pa) * (FOV_ANGLE);
 	return (c);
 }
 
@@ -49,7 +49,7 @@ double	inv_det(const t_camera *c)
 {
 	double	det;
 
-	det = (c->planeX * c->dirY) - (c->dirX * c->planeY);
+	det = (c->planex * c->diry) - (c->dirx * c->planey);
 	if (fabs(det) < 1e-9)
 		return (1e9);
 	return (1.0 / det);
@@ -59,7 +59,7 @@ t_vec2d	camera_space(const t_vec2d *d, const t_camera *c, double invDet)
 {
 	t_vec2d	t;
 
-	t.x = invDet * (c->dirY * d->x - c->dirX * d->y);
-	t.y = invDet * (-c->planeY * d->x + c->planeX * d->y);
+	t.x = invDet * (c->diry * d->x - c->dirx * d->y);
+	t.y = invDet * (-c->planey * d->x + c->planex * d->y);
 	return (t);
 }

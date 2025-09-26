@@ -45,6 +45,7 @@ void	free_matrix(void **matrix, size_t size)
 		free_null((void *)&matrix);
 	}
 }
+
 void	free_null(void **ptr)
 {
 	if (*ptr != NULL)

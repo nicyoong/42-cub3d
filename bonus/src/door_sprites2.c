@@ -6,7 +6,7 @@
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 18:57:47 by nyoong            #+#    #+#             */
-/*   Updated: 2025/09/26 18:57:54 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/26 19:20:46 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ void	draw_sprite_columns(t_game *game, t_image img,
 	int			texy;
 	uint32_t	color;
 
-	stripe = r->startX;
-	while (stripe <= r->endX)
+	stripe = r->startx;
+	while (stripe <= r->endx)
 	{
 		if (stripe >= 0 && stripe < game->window_width)
 		{
 			if (depth < game->zbuffer[stripe])
 			{
 				texx = tex_x_for_stripe(stripe, p, img.img->width);
-				y = r->startY;
-				while (y <= r->endY)
+				y = r->starty;
+				while (y <= r->endy)
 				{
 					texy = tex_y_for_y(y, game, p, img.img->height);
 					color = get_color(img, texx, texy);

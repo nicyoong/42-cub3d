@@ -6,7 +6,7 @@
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 18:59:33 by nyoong            #+#    #+#             */
-/*   Updated: 2025/09/26 18:59:44 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/26 19:22:41 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,10 @@ void	rectangle(t_image image, t_img_prop *prop)
 		i = 0;
 		while (i < prop->width)
 		{
-			draw_px(image, \
-				prop->x_offset + i, \
-				prop->y_offset + j, \
-				prop->color \
-			);
+			draw_px(image,
+				prop->x_offset + i,
+				prop->y_offset + j,
+				prop->color);
 			i++;
 		}
 		j++;

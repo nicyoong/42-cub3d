@@ -6,7 +6,7 @@
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 18:59:42 by nyoong            #+#    #+#             */
-/*   Updated: 2025/09/26 18:59:43 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/26 19:23:07 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	close_window(t_game *game)
 	exit_game(game);
 	return (0);
 }
-
 
 void	cleanup_sprites(t_image *images, void *mlx, int x)
 {

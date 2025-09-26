@@ -6,7 +6,7 @@
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 19:00:36 by nyoong            #+#    #+#             */
-/*   Updated: 2025/09/26 19:00:36 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/26 19:23:31 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,3 @@ int	get_texture(char *file, int identifier, t_game *game)
 		error("Failed texture malloc", game);
 	return (n);
 }
-
-

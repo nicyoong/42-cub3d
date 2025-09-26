@@ -6,7 +6,7 @@
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 18:54:29 by nyoong            #+#    #+#             */
-/*   Updated: 2025/09/26 18:54:50 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/26 19:20:36 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_spriteproj	project_sprite(const t_game *game,
 
 	invy = 1.0 / t->y;
 	baseh = (int)(TILE_SIZE * invy * game->wall_prop.projected_wall);
-	p.screenX = (int)(game->half_width * (1.0 + (t->x * invy)));
+	p.screenx = (int)(game->half_width * (1.0 + (t->x * invy)));
 	p.height = baseh;
 	if (p.height < 1)
 		p.height = 1;
@@ -37,10 +37,10 @@ t_drawrect	draw_rect(const t_game *game, const t_spriteproj *p)
 	int			hh;
 
 	hh = game->half_height;
-	r.startY = clampi(-p->height / 2 + hh, 0, game->window_height - 1);
-	r.endY = clampi(p->height / 2 + hh, 0, game->window_height - 1);
-	r.startX = clampi(-p->width / 2 + p->screenX, 0, game->window_width - 1);
-	r.endX = clampi(p->width / 2 + p->screenX, 0, game->window_width - 1);
+	r.starty = clampi(-p->height / 2 + hh, 0, game->window_height - 1);
+	r.endy = clampi(p->height / 2 + hh, 0, game->window_height - 1);
+	r.startx = clampi(-p->width / 2 + p->screenx, 0, game->window_width - 1);
+	r.endx = clampi(p->width / 2 + p->screenx, 0, game->window_width - 1);
 	return (r);
 }
 
@@ -49,7 +49,7 @@ int	tex_x_for_stripe(int stripe, const t_spriteproj *p, int texW)
 	int	left;
 	int	texx;
 
-	left = -p->width / 2 + p->screenX;
+	left = -p->width / 2 + p->screenx;
 	texx = (int)((stripe - left) * (double)texW / (double)p->width);
 	return (clampi(texx, 0, texW - 1));
 }
