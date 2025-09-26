@@ -1,49 +1,57 @@
 #include "../inc/cub3D.h"
 
-static void load_door_anim(t_game *game, t_door *door)
+void	load_door_anim(t_game *game, t_door *door)
 {
-	int frames;
+	int	frames;
 
 	frames = 4;
 	door->anim.frames = malloc(sizeof(t_image) * frames);
-	if (!door->anim.frames) error("Door frames alloc failed", game);
+	if (!door->anim.frames)
+		error("Door frames alloc failed", game);
 	door->anim.frame_count = frames;
 	door->anim.current = 0;
 	door->anim.timer = 0.0;
-	if (set_sprite(&door->anim.frames[0], game->mlx, "./assets/door_close.XPM") ||
-			set_sprite(&door->anim.frames[1], game->mlx, "./assets/door_open1.XPM") ||
-			set_sprite(&door->anim.frames[2], game->mlx, "./assets/door_open2.XPM") ||
-			set_sprite(&door->anim.frames[3], game->mlx, "./assets/door_openfull.XPM") )
+	if (set_sprite(&door->anim.frames[0],
+			game->mlx, "./assets/door_close.XPM")
+		|| set_sprite(&door->anim.frames[1],
+			game->mlx, "./assets/door_open1.XPM")
+		|| set_sprite(&door->anim.frames[2],
+			game->mlx, "./assets/door_open2.XPM")
+		|| set_sprite(&door->anim.frames[3],
+			game->mlx, "./assets/door_openfull.XPM"))
 		error("Could not load door frames", game);
 }
 
 void	register_doors(t_game *game)
 {
-	int	x;
-	int	y;
-	int	count;
-	int	idx;
+	int		x;
+	int		y;
+	int		count;
+	int		idx;
+	t_door	*d;
 
 	count = 0;
 	idx = 0;
 	y = 0;
-	while (game->params.map[y]) {
+	while (game->params.map[y])
+	{
 		x = 0;
-		while (game->params.map[y][x]) {
+		while (game->params.map[y][x])
+		{
 			if (game->params.map[y][x] == DOOR_TILE)
 				count++;
 			x++;
 		}
 		y++;
 	}
-    game->door_count = count;
-    if (count == 0)
+	game->door_count = count;
+	if (count == 0)
 	{
 		game->doors = NULL;
-		return;
+		return ;
 	}
-    game->doors = malloc(sizeof(t_door) * count);
-    if (!game->doors)
+	game->doors = malloc(sizeof(t_door) * count);
+	if (!game->doors)
 		error("Door array allocation failed", game);
 	y = 0;
 	while (game->params.map[y])
@@ -53,7 +61,7 @@ void	register_doors(t_game *game)
 		{
 			if (game->params.map[y][x] == DOOR_TILE)
 			{
-				t_door *d = &game->doors[idx++];
+				d = &game->doors[idx++];
 				d->x = x;
 				d->y = y;
 				d->state = DOOR_MIN;
@@ -112,8 +120,8 @@ int	clampi(int v, int lo, int hi)
 t_camera	make_camera(const t_game *game)
 {
 	t_camera	c;
-	double a;
-	double pa;
+	double		a;
+	double		pa;
 
 	a = game->player.xy.angle;
 	pa = a + HALF_PI;
@@ -147,7 +155,7 @@ t_vec2d	camera_space(const t_vec2d *d, const t_camera *c, double invDet)
 {
 	t_vec2d	t;
 
-	t.x = invDet * ( c->dirY  * d->x - c->dirX  * d->y);
+	t.x = invDet * (c->dirY * d->x - c->dirX * d->y);
 	t.y = invDet * (-c->planeY * d->x + c->planeX * d->y);
 	return (t);
 }
@@ -156,13 +164,13 @@ t_spriteproj	project_sprite(const t_game *game,
 	const t_vec2d *t, t_image img)
 {
 	t_spriteproj	p;
-	double			invY;
-	int				baseH;
+	double			invy;
+	int				baseh;
 
-	invY = 1.0 / t->y;
-	baseH = (int)(TILE_SIZE * invY * game->wall_prop.projected_wall);
-	p.screenX = (int)(game->half_width * (1.0 + (t->x * invY)));
-	p.height  = baseH;
+	invy = 1.0 / t->y;
+	baseh = (int)(TILE_SIZE * invy * game->wall_prop.projected_wall);
+	p.screenX = (int)(game->half_width * (1.0 + (t->x * invy)));
+	p.height = baseh;
 	if (p.height < 1)
 		p.height = 1;
 	p.width = (int)((double)p.height * img.img->width / img.img->height);
@@ -178,42 +186,42 @@ t_drawrect	draw_rect(const t_game *game, const t_spriteproj *p)
 
 	hh = game->half_height;
 	r.startY = clampi(-p->height / 2 + hh, 0, game->window_height - 1);
-	r.endY = clampi( p->height / 2 + hh, 0, game->window_height - 1);
+	r.endY = clampi(p->height / 2 + hh, 0, game->window_height - 1);
 	r.startX = clampi(-p->width / 2 + p->screenX, 0, game->window_width - 1);
-	r.endX = clampi( p->width / 2 + p->screenX, 0, game->window_width - 1);
+	r.endX = clampi(p->width / 2 + p->screenX, 0, game->window_width - 1);
 	return (r);
 }
 
 int	tex_x_for_stripe(int stripe, const t_spriteproj *p, int texW)
 {
 	int	left;
-	int	texX;
+	int	texx;
 
 	left = -p->width / 2 + p->screenX;
-	texX = (int)((stripe - left) * (double)texW / (double)p->width);
-	return (clampi(texX, 0, texW - 1));
+	texx = (int)((stripe - left) * (double)texW / (double)p->width);
+	return (clampi(texx, 0, texW - 1));
 }
 
 int	tex_y_for_y(int y, const t_game *game, const t_spriteproj *p, int texH)
 {
-	int top;
-	int d;
-	int texY;
+	int	top;
+	int	d;
+	int	texy;
 
 	top = -p->height / 2 + game->half_height;
 	d = y - top;
-	texY = (int)((double)d * (double)texH / (double)p->height);
-	return (clampi(texY, 0, texH - 1));
+	texy = (int)((double)d * (double)texH / (double)p->height);
+	return (clampi(texy, 0, texH - 1));
 }
 
 void	draw_sprite_columns(t_game *game, t_image img,
-    const t_spriteproj *p, const t_drawrect *r, double depth)
+	const t_spriteproj *p, const t_drawrect *r, double depth)
 {
-	int	stripe;
-	int	texX;
-	int	y;
-	int	texY;
-	uint32_t color;
+	int			stripe;
+	int			texx;
+	int			y;
+	int			texy;
+	uint32_t	color;
 
 	stripe = r->startX;
 	while (stripe <= r->endX)
@@ -222,12 +230,12 @@ void	draw_sprite_columns(t_game *game, t_image img,
 		{
 			if (depth < game->zbuffer[stripe])
 			{
-				texX = tex_x_for_stripe(stripe, p, img.img->width);
+				texx = tex_x_for_stripe(stripe, p, img.img->width);
 				y = r->startY;
 				while (y <= r->endY)
 				{
-					texY = tex_y_for_y(y, game, p, img.img->height);
-					color = get_color(img, texX, texY);
+					texy = tex_y_for_y(y, game, p, img.img->height);
+					color = get_color(img, texx, texy);
 					if ((color & 0xFF000000) != TRANSPARENCY)
 						draw_px(game->img, stripe, y, color);
 					y++;
@@ -252,7 +260,7 @@ void	draw_door_sprite(t_game *game, t_image img, double sx, double sy)
 	inv = inv_det(&cam);
 	t = camera_space(&delta, &cam, inv);
 	if (t.y <= 0.0001)
-		return;
+		return ;
 	proj = project_sprite(game, &t, img);
 	rect = draw_rect(game, &proj);
 	draw_sprite_columns(game, img, &proj, &rect, t.y);
@@ -278,31 +286,44 @@ void	draw_doors_as_sprites(t_game *game)
 	}
 }
 
-t_door *find_door(t_game *game, int map_x, int map_y)
+t_door	*find_door(t_game *game, int map_x, int map_y)
 {
-    for (int i = 0; i < game->door_count; i++)
-        if (game->doors[i].x == map_x && game->doors[i].y == map_y)
-            return &game->doors[i];
-    return NULL;
+	int	i;
+
+	i = 0;
+	while (i < game->door_count)
+	{
+		if (game->doors[i].x == map_x && game->doors[i].y == map_y)
+			return (&game->doors[i]);
+		i++;
+	}
+	return (NULL);
 }
 
-void toggle_door(t_game *game)
+void	toggle_door(t_game *game)
 {
-    double px = game->player.xy.x / TILE_SIZE;
-    double py = game->player.xy.y / TILE_SIZE;
+	double	px;
+	double	py;
+	int		front_x;
+	int		front_y;
+	t_door	*door;
 
-    int front_x = (int)(px + cos(game->player.xy.angle) * DOOR_INTERACT_DIST);
-    int front_y = (int)(py + sin(game->player.xy.angle) * DOOR_INTERACT_DIST);
-
-    if (front_x < 0 || front_y < 0 ||
-        front_y >= (int)count_vectors((void**)game->params.map) ||
-        front_x >= (int)ft_strlen(game->params.map[front_y]))
-        return;
-
-    if (game->params.map[front_y][front_x] == DOOR_TILE) {
-        t_door *door = find_door(game, front_x, front_y);
-        if (!door) return;
-        if (door->state <= DOOR_MIN) door->opening = 1;   // start opening
-        else if (door->state >= DOOR_MAX) door->opening = -1; // start closing
-    }
+	px = game->player.xy.x / TILE_SIZE;
+	py = game->player.xy.y / TILE_SIZE;
+	front_x = (int)(px + cos(game->player.xy.angle) * DOOR_INTERACT_DIST);
+	front_y = (int)(py + sin(game->player.xy.angle) * DOOR_INTERACT_DIST);
+	if (front_x < 0 || front_y < 0
+		|| front_y >= (int)count_vectors((void**)game->params.map)
+		|| front_x >= (int)ft_strlen(game->params.map[front_y]))
+		return ;
+	if (game->params.map[front_y][front_x] == DOOR_TILE)
+	{
+		door = find_door(game, front_x, front_y);
+		if (!door)
+			return ;
+		if (door->state <= DOOR_MIN)
+			door->opening = 1;
+		else if (door->state >= DOOR_MAX)
+			door->opening = -1;
+	}
 }
