@@ -6,7 +6,7 @@
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 19:04:17 by nyoong            #+#    #+#             */
-/*   Updated: 2025/09/26 19:19:37 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/26 19:47:13 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	has_wall_for_raycast(t_game *game, double x, double y)
 
 	col = (int)floor(x / TILE_SIZE);
 	row = (int)floor(y / TILE_SIZE);
-	if (row < 0 || row >= (int)count_vectors((void**)game->params.map))
+	if (row < 0 || row >= (int)count_vectors((void **)game->params.map))
 		return (1);
 	if (col < 0 || col >= (int)ft_strlen(game->params.map[row]))
 		return (1);
@@ -37,7 +37,7 @@ int	has_blocking_tile(t_game *game, double x, double y)
 
 	col = (int)floor(x / TILE_SIZE);
 	row = (int)floor(y / TILE_SIZE);
-	if (row < 0 || row >= (int)count_vectors((void**)game->params.map))
+	if (row < 0 || row >= (int)count_vectors((void **)game->params.map))
 		return (1);
 	if (col < 0 || col >= (int)ft_strlen(game->params.map[row]))
 		return (1);

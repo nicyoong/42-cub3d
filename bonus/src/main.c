@@ -6,7 +6,7 @@
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 19:00:07 by nyoong            #+#    #+#             */
-/*   Updated: 2025/09/26 19:00:08 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/26 19:43:47 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	start_cubed(t_game *game)
 	mlx_hook(game->window, 2, 1, press_key, game);
 	mlx_hook(game->window, 3, 2, release_key, game);
 	mlx_hook(game->window, 17, 0, close_window, game);
-	mlx_hook(game->window, 6, 1L<<6, mouse_move, game);
+	mlx_hook(game->window, 6, 1L << 6, mouse_move, game);
 	mlx_loop_hook(game->mlx, init_graphics, game);
 	mlx_loop(game->mlx);
 }

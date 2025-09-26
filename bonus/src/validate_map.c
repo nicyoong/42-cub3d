@@ -6,7 +6,7 @@
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 19:06:28 by nyoong            #+#    #+#             */
-/*   Updated: 2025/09/26 19:06:28 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/26 19:45:19 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ int	surrounded(char **map, t_map_validation v)
 	if (map[v.line_num][v.column - 1] != '1' && !v.is_closed_behind)
 		return (0);
 	if (v.line_num)
-		if ((v.column >= v.column_limit[TOP_LINE] || \
-			(map[v.line_num - 1][v.column - 1] == ' ') || \
-			(map[v.line_num - 1][v.column] == ' ')))
+		if ((v.column >= v.column_limit[TOP_LINE]
+			|| (map[v.line_num - 1][v.column - 1] == ' ')
+			|| (map[v.line_num - 1][v.column] == ' ')))
 			return (0);
 	if (v.line_num < v.total_lines - 1)
-		if ((v.column >= v.column_limit[BOTTOM_LINE] || \
-			(map[v.line_num + 1][v.column - 1] == ' ') || \
-			(map[v.line_num + 1][v.column] == ' ')))
+		if ((v.column >= v.column_limit[BOTTOM_LINE]
+			|| (map[v.line_num + 1][v.column - 1] == ' ')
+			|| (map[v.line_num + 1][v.column] == ' ')))
 			return (0);
 	return (1);
 }
@@ -103,6 +103,6 @@ void	map_validate(t_game *game)
 		if (row_validate(game->params.map, v))
 			error("No surrounding walls", game);
 	game->minimap_width = get_max_ls(game->params.map) * TILE_SIZE;
-	game->minimap_height = count_vectors((void **)game->params.map) * \
-		TILE_SIZE;
+	game->minimap_height = count_vectors((void **)game->params.map)
+		* TILE_SIZE;
 }

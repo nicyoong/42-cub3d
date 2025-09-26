@@ -32,16 +32,16 @@ void	setup_game(t_game *game)
 
 void	set_window(t_game *game)
 {
-	game->window = mlx_new_window(game->mlx, game->window_width, \
-		game->window_height, "cub3D");
+	game->window = mlx_new_window(game->mlx, game->window_width,
+			game->window_height, "cub3D");
 	if (!game->window)
 		error("Failed to open window", game);
 }
 
 void	set_images(t_game *game)
 {
-	game->img.img = mlx_new_image(game->mlx, game->window_width, \
-		game->window_height);
+	game->img.img = mlx_new_image(game->mlx, game->window_width,
+			game->window_height);
 	if (!game->img.img)
 		error("Failed image creation", game);
 	game->img.img->bpp /= 8;
@@ -53,14 +53,14 @@ void	set_texture(t_game *game)
 {
 	int		status;
 
-	status = set_sprite(game->wall_texture + NO, game->mlx, \
-		game->params.texture[NO]);
-	status += set_sprite(game->wall_texture + SO, game->mlx, \
-		game->params.texture[SO]);
-	status += set_sprite(game->wall_texture + WE, game->mlx, \
-		game->params.texture[WE]);
-	status += set_sprite(game->wall_texture + EA, game->mlx, \
-		game->params.texture[EA]);
+	status = set_sprite(game->wall_texture + NO, game->mlx,
+			game->params.texture[NO]);
+	status += set_sprite(game->wall_texture + SO, game->mlx,
+			game->params.texture[SO]);
+	status += set_sprite(game->wall_texture + WE, game->mlx,
+			game->params.texture[WE]);
+	status += set_sprite(game->wall_texture + EA, game->mlx,
+			game->params.texture[EA]);
 	if (status != EXIT_SUCCESS)
 		error("Could not load textures", game);
 }

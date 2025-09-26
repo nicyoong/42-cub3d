@@ -6,7 +6,7 @@
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 19:01:08 by nyoong            #+#    #+#             */
-/*   Updated: 2025/09/26 19:04:56 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/26 19:46:13 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	calculate_next_step(t_game *game, int move_step, int side_move)
 		margin_y = -16;
 	to_x += game->player.xy.x;
 	to_y += game->player.xy.y;
-	if (!has_blocking_tile(game, to_x + margin_x, to_y + margin_y) && \
-		!collide_diagonal(game, to_x + margin_x, to_y + margin_y))
+	if (!has_blocking_tile(game, to_x + margin_x, to_y + margin_y)
+		&& !collide_diagonal(game, to_x + margin_x, to_y + margin_y))
 	{
 		game->player.xy.x = to_x;
 		game->player.xy.y = to_y;
@@ -53,7 +53,8 @@ void	player_movement(t_game *game)
 
 	if (game->player.move_direction)
 	{
-		game->player.xy.angle += game->player.move_direction * game->player.rotate_speed;
+		game->player.xy.angle += game->player.move_direction
+			* game->player.rotate_speed;
 		bound_angle(&game->player.xy.angle);
 	}
 	if (game->player.side_direction || game->player.walk_direction)
@@ -68,7 +69,3 @@ void	player_movement(t_game *game)
 		calculate_next_step(game, move, side);
 	}
 }
-
-
-
-

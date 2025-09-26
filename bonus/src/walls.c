@@ -6,7 +6,7 @@
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 19:06:37 by nyoong            #+#    #+#             */
-/*   Updated: 2025/09/26 19:06:38 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/26 19:39:00 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,25 @@ t_image	texture_id(t_game *game, int col)
 
 void	texture_prop(t_game *game, int col)
 {
-	game->texture_prop.y_offset = (game->half_height) - \
-		((int)game->wall_prop.projected_height / 2);
+	game->texture_prop.y_offset = (game->half_height)
+		- ((int)game->wall_prop.projected_height / 2);
 	if (game->texture_prop.y_offset < 0)
 		game->texture_prop.y_offset = 0;
 	game->texture_prop.x_offset = col * RAY_STRIP;
 	game->texture_prop.width = RAY_STRIP;
-	game->texture_prop.height = (game->half_height) + \
-		((int)game->wall_prop.projected_height / 2);
+	game->texture_prop.height = (game->half_height)
+		+ ((int)game->wall_prop.projected_height / 2);
 	if (game->texture_prop.height > game->window_height)
 		game->texture_prop.height = game->window_height;
 }
 
 void	wall_dimension(t_game *game, int col)
 {
-	game->wall_prop.ray_distance = game->rays[col].xy.hypo * \
-		cos(game->rays[col].xy.angle - game->player.xy.angle);
-	game->wall_prop.projected_height = \
-		(TILE_SIZE / game->wall_prop.ray_distance) * \
-		game->wall_prop.projected_wall;
+	game->wall_prop.ray_distance = game->rays[col].xy.hypo
+		* cos(game->rays[col].xy.angle - game->player.xy.angle);
+	game->wall_prop.projected_height
+		= (TILE_SIZE / game->wall_prop.ray_distance)
+		* game->wall_prop.projected_wall;
 }
 
 void	texture_xy(t_game *game, int col, int line)
@@ -57,10 +57,10 @@ void	texture_xy(t_game *game, int col, int line)
 		game->wall_prop.x_color = (int)game->rays[col].xy.y % (TILE_SIZE);
 	else
 		game->wall_prop.x_color = (int)game->rays[col].xy.x % (TILE_SIZE);
-	game->wall_prop.dist_from_top = line + \
-	((int)game->wall_prop.projected_height / 2) - (game->half_height);
-	game->wall_prop.y_color = game->wall_prop.dist_from_top * \
-		((float)TILE_SIZE / (int)game->wall_prop.projected_height);
+	game->wall_prop.dist_from_top = line
+		+ ((int)game->wall_prop.projected_height / 2) - (game->half_height);
+	game->wall_prop.y_color = game->wall_prop.dist_from_top
+		* ((float)TILE_SIZE / (int)game->wall_prop.projected_height);
 }
 
 void	draw_walls(t_game *game)
@@ -80,18 +80,14 @@ void	draw_walls(t_game *game)
 		while (line < game->texture_prop.height)
 		{
 			texture_xy(game, col, line);
-			draw_px(game->img, col, line, \
-				put_shade(get_color(current_img, \
-						game->wall_prop.x_color, \
-						game->wall_prop.y_color), \
-					game->rays[col].xy.hypo) \
+			draw_px(game->img, col, line,
+				put_shade(get_color(current_img,
+						game->wall_prop.x_color,
+						game->wall_prop.y_color),
+					game->rays[col].xy.hypo)
 			);
 			line++;
 		}
 		col++;
 	}
 }
-
-
-
-

@@ -6,7 +6,7 @@
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 21:21:42 by nyoong            #+#    #+#             */
-/*   Updated: 2025/09/25 21:31:12 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/26 19:43:14 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	cleanup_doors(t_game *game)
 	int		f;
 
 	if (!game)
-		return;
+		return ;
 	if (!game->doors)
-		return;
+		return ;
 	i = 0;
 	while (i < game->door_count)
 	{
@@ -57,11 +57,10 @@ void	cleanup_doors(t_game *game)
 	game->door_count = 0;
 }
 
-// Free zbuffer (depth buffer)
 void	cleanup_zbuffer(t_game *game)
 {
 	if (!game)
-		return;
+		return ;
 	if (game->zbuffer)
 	{
 		free(game->zbuffer);

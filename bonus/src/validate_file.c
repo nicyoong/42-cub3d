@@ -6,7 +6,7 @@
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 19:06:19 by nyoong            #+#    #+#             */
-/*   Updated: 2025/09/26 19:06:20 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/26 19:32:02 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	color_validate(t_game *game, int env)
 	{
 		j = -1;
 		while (game->params.rgb[env][i][++j])
-			if (!ft_isspace(game->params.rgb[env][i][j]) && \
-				!ft_isdigit(game->params.rgb[env][i][j]))
+			if (!ft_isspace(game->params.rgb[env][i][j])
+				&& !ft_isdigit(game->params.rgb[env][i][j]))
 				error("Invalid identifier", game);
 		color = ft_atoi(game->params.rgb[env][i]);
 		if (color < 0 || color > 255)
