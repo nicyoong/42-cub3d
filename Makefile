@@ -6,7 +6,7 @@
 #    By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/10 12:53:22 by tching            #+#    #+#              #
-#    Updated: 2025/09/26 19:05:12 by nyoong           ###   ########.fr        #
+#    Updated: 2025/09/26 19:28:22 by nyoong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ BONUS_SRCS = $(addprefix $(BONUS_SRC_DIR)/, \
 			player.c \
 			player_utils.c \
 			raycast.c \
+			raycast2.c \
 			register_doors.c \
 			resize_map.c \
 			set_params.c \
