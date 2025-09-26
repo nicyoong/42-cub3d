@@ -6,7 +6,7 @@
 #    By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/10 12:53:22 by tching            #+#    #+#              #
-#    Updated: 2025/09/26 18:13:58 by nyoong           ###   ########.fr        #
+#    Updated: 2025/09/26 18:15:39 by nyoong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ BONUS_SRCS = $(addprefix $(BONUS_SRC_DIR)/, \
 			resize_map.c \
 			set_params.c \
 			setup_game.c \
+			update_doors.c \
 			validate_file.c \
 			validate_map.c \
 			walls.c)

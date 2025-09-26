@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   doors.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/26 18:15:20 by nyoong            #+#    #+#             */
+/*   Updated: 2025/09/26 18:15:21 by nyoong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/cub3D.h"
 
 void	load_door_anim(t_game *game, t_door *door)
@@ -20,125 +32,6 @@ void	load_door_anim(t_game *game, t_door *door)
 		|| set_sprite(&door->anim.frames[3],
 			game->mlx, "./assets/door_openfull.XPM"))
 		error("Could not load door frames", game);
-}
-
-static int	count_doors(t_game *game)
-{
-	int	x;
-	int	y;
-	int	count;
-
-	count = 0;
-	y = 0;
-	while (game->params.map[y])
-	{
-		x = 0;
-		while (game->params.map[y][x])
-		{
-			if (game->params.map[y][x] == DOOR_TILE)
-				count++;
-			x++;
-		}
-		y++;
-	}
-	return (count);
-}
-
-static void	allocate_doors(t_game *game, int count)
-{
-	game->door_count = count;
-	if (count == 0)
-	{
-		game->doors = NULL;
-		return ;
-	}
-	game->doors = malloc(sizeof(t_door) * count);
-	if (!game->doors)
-		error("Door array allocation failed", game);
-}
-
-static void	init_doors(t_game *game)
-{
-	int		x;
-	int		y;
-	int		idx;
-	t_door	*d;
-
-	idx = 0;
-	y = 0;
-	while (game->params.map[y])
-	{
-		x = 0;
-		while (game->params.map[y][x])
-		{
-			if (game->params.map[y][x] == DOOR_TILE)
-			{
-				d = &game->doors[idx++];
-				d->x = x;
-				d->y = y;
-				d->state = DOOR_MIN;
-				d->opening = 0;
-				load_door_anim(game, d);
-			}
-			x++;
-		}
-		y++;
-	}
-}
-
-void	register_doors(t_game *game)
-{
-	int	count;
-
-	count = count_doors(game);
-	allocate_doors(game, count);
-	if (count > 0)
-		init_doors(game);
-}
-
-static void	update_door_state(t_door *d)
-{
-	if (d->opening == 1 && d->state < DOOR_MAX)
-		d->state += DOOR_SPEED;
-	else if (d->opening == -1 && d->state > DOOR_MIN)
-		d->state -= DOOR_SPEED;
-	if (d->state >= DOOR_MAX)
-	{
-		d->state = DOOR_MAX;
-		d->opening = 0;
-	}
-	if (d->state <= DOOR_MIN)
-	{
-		d->state = DOOR_MIN;
-		d->opening = 0;
-	}
-}
-
-static void	update_door_anim(t_door *d)
-{
-	int	idx;
-
-	idx = (int)(d->state * (d->anim.frame_count - 1) + 0.5);
-	if (idx < 0)
-		idx = 0;
-	if (idx >= d->anim.frame_count)
-		idx = d->anim.frame_count - 1;
-	d->anim.current = idx;
-}
-
-void	update_doors(t_game *game)
-{
-	int		i;
-	t_door	*d;
-
-	i = 0;
-	while (i < game->door_count)
-	{
-		d = &game->doors[i];
-		update_door_state(d);
-		update_door_anim(d);
-		i++;
-	}
 }
 
 int	clampi(int v, int lo, int hi)
