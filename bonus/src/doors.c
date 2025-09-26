@@ -22,16 +22,13 @@ void	load_door_anim(t_game *game, t_door *door)
 		error("Could not load door frames", game);
 }
 
-void	register_doors(t_game *game)
+static int	count_doors(t_game *game)
 {
-	int		x;
-	int		y;
-	int		count;
-	int		idx;
-	t_door	*d;
+	int	x;
+	int	y;
+	int	count;
 
 	count = 0;
-	idx = 0;
 	y = 0;
 	while (game->params.map[y])
 	{
@@ -44,6 +41,11 @@ void	register_doors(t_game *game)
 		}
 		y++;
 	}
+	return (count);
+}
+
+static void	allocate_doors(t_game *game, int count)
+{
 	game->door_count = count;
 	if (count == 0)
 	{
@@ -53,6 +55,16 @@ void	register_doors(t_game *game)
 	game->doors = malloc(sizeof(t_door) * count);
 	if (!game->doors)
 		error("Door array allocation failed", game);
+}
+
+static void	init_doors(t_game *game)
+{
+	int		x;
+	int		y;
+	int		idx;
+	t_door	*d;
+
+	idx = 0;
 	y = 0;
 	while (game->params.map[y])
 	{
@@ -74,36 +86,57 @@ void	register_doors(t_game *game)
 	}
 }
 
+void	register_doors(t_game *game)
+{
+	int	count;
+
+	count = count_doors(game);
+	allocate_doors(game, count);
+	if (count > 0)
+		init_doors(game);
+}
+
+static void	update_door_state(t_door *d)
+{
+	if (d->opening == 1 && d->state < DOOR_MAX)
+		d->state += DOOR_SPEED;
+	else if (d->opening == -1 && d->state > DOOR_MIN)
+		d->state -= DOOR_SPEED;
+	if (d->state >= DOOR_MAX)
+	{
+		d->state = DOOR_MAX;
+		d->opening = 0;
+	}
+	if (d->state <= DOOR_MIN)
+	{
+		d->state = DOOR_MIN;
+		d->opening = 0;
+	}
+}
+
+static void	update_door_anim(t_door *d)
+{
+	int	idx;
+
+	idx = (int)(d->state * (d->anim.frame_count - 1) + 0.5);
+	if (idx < 0)
+		idx = 0;
+	if (idx >= d->anim.frame_count)
+		idx = d->anim.frame_count - 1;
+	d->anim.current = idx;
+}
+
 void	update_doors(t_game *game)
 {
 	int		i;
 	t_door	*d;
-	int		idx;
 
 	i = 0;
 	while (i < game->door_count)
 	{
 		d = &game->doors[i];
-		if (d->opening == 1 && d->state < DOOR_MAX)
-			d->state += DOOR_SPEED;
-		else if (d->opening == -1 && d->state > DOOR_MIN)
-			d->state -= DOOR_SPEED;
-		if (d->state >= DOOR_MAX)
-		{
-			d->state = DOOR_MAX;
-			d->opening = 0;
-		}
-		if (d->state <= DOOR_MIN)
-		{
-			d->state = DOOR_MIN;
-			d->opening = 0;
-		}
-		idx = (int)(d->state * (d->anim.frame_count - 1) + 0.5);
-		if (idx < 0)
-			idx = 0;
-		if (idx >= d->anim.frame_count)
-			idx = d->anim.frame_count - 1;
-		d->anim.current = idx;
+		update_door_state(d);
+		update_door_anim(d);
 		i++;
 	}
 }
