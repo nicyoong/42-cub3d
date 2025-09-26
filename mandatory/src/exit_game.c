@@ -4,7 +4,7 @@
 
 void	free_game(t_game *game)
 {
-	if (game->file != INPUT_ERROR)
+	if (game->file != (void *)INPUT_ERROR)
 		free_null((void *)&game->file);
 	free_null((void *)&game->rays);
 }

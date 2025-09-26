@@ -15,7 +15,7 @@
 # include <stdint.h>
 # include <limits.h>
 
-# define INPUT_ERROR				(void *)-1
+# define INPUT_ERROR			-1
 
 # define MOVEMENT_SPEED			4
 # define RAY_STRIP				1
