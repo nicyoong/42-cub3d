@@ -6,7 +6,7 @@
 #    By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/10 12:53:22 by tching            #+#    #+#              #
-#    Updated: 2025/09/26 18:58:24 by nyoong           ###   ########.fr        #
+#    Updated: 2025/09/26 19:05:12 by nyoong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRCS	= $(addprefix $(SRC_DIR)/, \
 
 BONUS_SRCS = $(addprefix $(BONUS_SRC_DIR)/, \
 			cleanup_doors.c \
+			collisions.c \
 			doors.c \
 			door_sprites.c \
 			door_sprites2.c \
