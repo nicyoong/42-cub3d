@@ -76,12 +76,12 @@ int	surrounded(char **map, t_map_validation v)
 		return (0);
 	if (v.line_num)
 		if ((v.column >= v.column_limit[TOP_LINE]
-			|| (map[v.line_num - 1][v.column - 1] == ' ')
+				|| (map[v.line_num - 1][v.column - 1] == ' ')
 			|| (map[v.line_num - 1][v.column] == ' ')))
 			return (0);
 	if (v.line_num < v.total_lines - 1)
 		if ((v.column >= v.column_limit[BOTTOM_LINE]
-			|| (map[v.line_num + 1][v.column - 1] == ' ')
+				|| (map[v.line_num + 1][v.column - 1] == ' ')
 			|| (map[v.line_num + 1][v.column] == ' ')))
 			return (0);
 	return (1);

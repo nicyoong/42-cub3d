@@ -84,8 +84,7 @@ void	draw_walls(t_game *game)
 				put_shade(get_color(current_img,
 						game->wall_prop.x_color,
 						game->wall_prop.y_color),
-					game->rays[col].xy.hypo)
-			);
+					game->rays[col].xy.hypo));
 			line++;
 		}
 		col++;
