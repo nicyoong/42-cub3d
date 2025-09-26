@@ -6,7 +6,7 @@
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 18:15:20 by nyoong            #+#    #+#             */
-/*   Updated: 2025/09/26 18:15:21 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/26 18:56:12 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,112 +32,6 @@ void	load_door_anim(t_game *game, t_door *door)
 		|| set_sprite(&door->anim.frames[3],
 			game->mlx, "./assets/door_openfull.XPM"))
 		error("Could not load door frames", game);
-}
-
-int	clampi(int v, int lo, int hi)
-{
-	if (v < lo)
-		return (lo);
-	if (v > hi)
-		return (hi);
-	return (v);
-}
-
-t_camera	make_camera(const t_game *game)
-{
-	t_camera	c;
-	double		a;
-	double		pa;
-
-	a = game->player.xy.angle;
-	pa = a + HALF_PI;
-	c.dirX = cos(a);
-	c.dirY = sin(a);
-	c.planeX = cos(pa) * (FOV_ANGLE);
-	c.planeY = sin(pa) * (FOV_ANGLE);
-	return (c);
-}
-
-t_vec2d	sprite_delta(const t_game *game, double sx, double sy)
-{
-	t_vec2d	d;
-
-	d.x = sx - game->player.xy.x;
-	d.y = sy - game->player.xy.y;
-	return (d);
-}
-
-double	inv_det(const t_camera *c)
-{
-	double	det;
-
-	det = (c->planeX * c->dirY) - (c->dirX * c->planeY);
-	if (fabs(det) < 1e-9)
-		return (1e9);
-	return (1.0 / det);
-}
-
-t_vec2d	camera_space(const t_vec2d *d, const t_camera *c, double invDet)
-{
-	t_vec2d	t;
-
-	t.x = invDet * (c->dirY * d->x - c->dirX * d->y);
-	t.y = invDet * (-c->planeY * d->x + c->planeX * d->y);
-	return (t);
-}
-
-t_spriteproj	project_sprite(const t_game *game,
-	const t_vec2d *t, t_image img)
-{
-	t_spriteproj	p;
-	double			invy;
-	int				baseh;
-
-	invy = 1.0 / t->y;
-	baseh = (int)(TILE_SIZE * invy * game->wall_prop.projected_wall);
-	p.screenX = (int)(game->half_width * (1.0 + (t->x * invy)));
-	p.height = baseh;
-	if (p.height < 1)
-		p.height = 1;
-	p.width = (int)((double)p.height * img.img->width / img.img->height);
-	if (p.width < 1)
-		p.width = 1;
-	return (p);
-}
-
-t_drawrect	draw_rect(const t_game *game, const t_spriteproj *p)
-{
-	t_drawrect	r;
-	int			hh;
-
-	hh = game->half_height;
-	r.startY = clampi(-p->height / 2 + hh, 0, game->window_height - 1);
-	r.endY = clampi(p->height / 2 + hh, 0, game->window_height - 1);
-	r.startX = clampi(-p->width / 2 + p->screenX, 0, game->window_width - 1);
-	r.endX = clampi(p->width / 2 + p->screenX, 0, game->window_width - 1);
-	return (r);
-}
-
-int	tex_x_for_stripe(int stripe, const t_spriteproj *p, int texW)
-{
-	int	left;
-	int	texx;
-
-	left = -p->width / 2 + p->screenX;
-	texx = (int)((stripe - left) * (double)texW / (double)p->width);
-	return (clampi(texx, 0, texW - 1));
-}
-
-int	tex_y_for_y(int y, const t_game *game, const t_spriteproj *p, int texH)
-{
-	int	top;
-	int	d;
-	int	texy;
-
-	top = -p->height / 2 + game->half_height;
-	d = y - top;
-	texy = (int)((double)d * (double)texH / (double)p->height);
-	return (clampi(texy, 0, texH - 1));
 }
 
 void	draw_sprite_columns(t_game *game, t_image img,

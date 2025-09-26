@@ -268,6 +268,12 @@ void    	set_texture(t_game *game);
 void		setup_game(t_game *game);
 void		set_params(t_game *game);
 
+t_spriteproj	project_sprite(const t_game *game,
+	const t_vec2d *t, t_image img);
+t_drawrect	draw_rect(const t_game *game, const t_spriteproj *p);
+int	tex_x_for_stripe(int stripe, const t_spriteproj *p, int texW);
+int	tex_y_for_y(int y, const t_game *game, const t_spriteproj *p, int texH);
+
 void		load_door_anim(t_game *game, t_door *door);
 void		register_doors(t_game *game);
 void		update_doors(t_game *game);
