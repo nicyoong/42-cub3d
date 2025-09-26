@@ -6,7 +6,7 @@
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 19:15:05 by nyoong            #+#    #+#             */
-/*   Updated: 2025/09/26 19:21:52 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/26 20:00:25 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,6 +258,13 @@ typedef struct s_drawrect
 	int	endy;
 }	t_drawrect;
 
+typedef struct s_projrect
+{
+	t_spriteproj	proj;
+	t_drawrect		rect;
+	double			depth;
+}	t_projrect;
+
 void			init_cubed(t_game *game);
 int				init_graphics(t_game *game);
 void			start_cubed(t_game *game);
@@ -333,7 +340,7 @@ void			calculate_next_step(t_game *game, int move, int side_move);
 void			bound_angle(double *angle);
 void			player_movement(t_game *game);
 
-void			contruct_ray(t_ray *ray);
+void			construct_ray(t_ray *ray);
 void			vertical_cast(t_game *game, t_rays_prop *v, t_ray *ray);
 void			horizontal_cast(t_game *game, t_rays_prop *h, t_ray *ray);
 void			calculate_distance(t_game *game, t_ray *ray);
