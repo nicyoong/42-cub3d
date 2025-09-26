@@ -263,13 +263,21 @@ int get_texture(char *file, int identifier, t_game *game);
 
 void    set_window(t_game *game);
 void    set_images(t_game *game);
-int    set_sprite(t_image *image, void *mlx, char *path);
-void    set_texture(t_game *game);
-void    setup_game(t_game *game);
-void	set_params(t_game *game);
+int			set_sprite(t_image *image, void *mlx, char *path);
+void    	set_texture(t_game *game);
+void		setup_game(t_game *game);
+void		set_params(t_game *game);
 
-void    register_doors(t_game *game);
-void	update_doors(t_game *game);
+void		load_door_anim(t_game *game, t_door *door);
+void		register_doors(t_game *game);
+void		update_doors(t_game *game);
+
+int			clampi(int v, int lo, int hi);
+t_camera	make_camera(const t_game *game);
+t_vec2d		sprite_delta(const t_game *game, double sx, double sy);
+double		inv_det(const t_camera *c);
+t_vec2d		camera_space(const t_vec2d *d, const t_camera *c, double invDet);
+
 void	draw_doors_as_sprites(t_game *game);
 t_door	*find_door(t_game *game, int map_x, int map_y);
 void	toggle_door(t_game *game);
