@@ -284,6 +284,10 @@ t_vec2d		sprite_delta(const t_game *game, double sx, double sy);
 double		inv_det(const t_camera *c);
 t_vec2d		camera_space(const t_vec2d *d, const t_camera *c, double invDet);
 
+void	draw_sprite_columns(t_game *game, t_image img,
+	const t_spriteproj *p, const t_drawrect *r, double depth);
+void	draw_door_sprite(t_game *game, t_image img, double sx, double sy);
+
 void	draw_doors_as_sprites(t_game *game);
 t_door	*find_door(t_game *game, int map_x, int map_y);
 void	toggle_door(t_game *game);
