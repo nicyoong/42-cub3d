@@ -238,34 +238,43 @@ void	draw_sprite_columns(t_game *game, t_image img,
 	}
 }
 
-/* 10) Public entry: simple billboard sprite draw using zbuffer occlusion */
-static void	draw_door_sprite(t_game *game, t_image img, double sx, double sy)
+void	draw_door_sprite(t_game *game, t_image img, double sx, double sy)
 {
-	t_camera cam   = make_camera(game);
-	t_vec2d  delta = sprite_delta(game, sx, sy);
-	double   inv   = inv_det(&cam);
-	t_vec2d  t     = camera_space(&delta, &cam, inv);
+	t_camera		cam;
+	t_vec2d			delta;
+	double			inv;
+	t_vec2d			t;
+	t_spriteproj	proj;
+	t_drawrect		rect;
 
-	if (t.y <= 0.0001) return; // behind camera / degenerate
-
-	t_spriteproj proj = project_sprite(game, &t, img);
-	t_drawrect   rect = draw_rect(game, &proj);
-
+	cam = make_camera(game);
+	delta = sprite_delta(game, sx, sy);
+	inv = inv_det(&cam);
+	t = camera_space(&delta, &cam, inv);
+	if (t.y <= 0.0001)
+		return;
+	proj = project_sprite(game, &t, img);
+	rect = draw_rect(game, &proj);
 	draw_sprite_columns(game, img, &proj, &rect, t.y);
 }
 
-// 11) Public: draw all doors as sprites (call this after draw_walls)
-void draw_doors_as_sprites(t_game *game)
+void	draw_doors_as_sprites(t_game *game)
 {
-	for (int i = 0; i < game->door_count; i++) {
-		t_door *d = &game->doors[i];
-		t_image frame = d->anim.frames[d->anim.current];
+	int		i;
+	t_door	*d;
+	t_image	frame;
+	double	world_x;
+	double	world_y;
 
-		// Center of door tile in world coords
-		double world_x = (d->x + 0.5) * TILE_SIZE;
-		double world_y = (d->y + 0.5) * TILE_SIZE;
-
+	i = 0;
+	while (i < game->door_count)
+	{
+		d = &game->doors[i];
+		frame = d->anim.frames[d->anim.current];
+		world_x = (d->x + 0.5) * TILE_SIZE;
+		world_y = (d->y + 0.5) * TILE_SIZE;
 		draw_door_sprite(game, frame, world_x, world_y);
+		i++;
 	}
 }
 
