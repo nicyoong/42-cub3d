@@ -6,7 +6,7 @@
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 18:15:20 by nyoong            #+#    #+#             */
-/*   Updated: 2025/09/26 18:58:37 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/26 18:59:06 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	load_door_anim(t_game *game, t_door *door)
 			game->mlx, "./assets/door_openfull.XPM"))
 		error("Could not load door frames", game);
 }
-
-
 
 void	draw_doors_as_sprites(t_game *game)
 {

@@ -1,46 +1,60 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/26 19:01:08 by nyoong            #+#    #+#             */
+/*   Updated: 2025/09/26 19:03:43 by nyoong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/cub3D.h"
 
-// Used by raycasting (draw_walls)
-// Only solid walls block rays. Doors are drawn as sprites, so don't stop rays here.
 int has_wall_for_raycast(t_game *game, double x, double y)
 {
-    int col = (int)floor(x / TILE_SIZE);
-    int row = (int)floor(y / TILE_SIZE);
+	int		col;
+	int		row;
+	char	tile;
 
-    if (row < 0 || row >= (int)count_vectors((void**)game->params.map))
-        return 1;
-    if (col < 0 || col >= (int)ft_strlen(game->params.map[row]))
-        return 1;
-
-    char tile = game->params.map[row][col];
-    return (tile == '1');   // <— only walls
+	col = (int)floor(x / TILE_SIZE);
+	row = (int)floor(y / TILE_SIZE);
+	if (row < 0 || row >= (int)count_vectors((void**)game->params.map))
+		return (1);
+	if (col < 0 || col >= (int)ft_strlen(game->params.map[row]))
+		return (1);
+	tile = game->params.map[row][col];
+	return (tile == '1');
 }
 
-// Used by player movement and collision
-// Both walls and (closed/closing) doors block the player
 int has_blocking_tile(t_game *game, double x, double y)
 {
-    int col = (int)floor(x / TILE_SIZE);
-    int row = (int)floor(y / TILE_SIZE);
+	int		col;
+	int		row;
+	char	tile;
+	int		i;
 
-    if (row < 0 || row >= (int)count_vectors((void**)game->params.map))
-        return 1;
-    if (col < 0 || col >= (int)ft_strlen(game->params.map[row]))
-        return 1;
-
-    char tile = game->params.map[row][col];
-    if (tile == '1')
-        return 1;
-    if (tile == DOOR_TILE)
-    {
-        for (int i = 0; i < game->door_count; i++) {
-            if (game->doors[i].x == col && game->doors[i].y == row) {
-                // Block if the door is not fully open
-                return (game->doors[i].state < DOOR_MAX);
-            }
-        }
-    }
-    return 0;
+	col = (int)floor(x / TILE_SIZE);
+	row = (int)floor(y / TILE_SIZE);
+	if (row < 0 || row >= (int)count_vectors((void**)game->params.map))
+		return (1);
+	if (col < 0 || col >= (int)ft_strlen(game->params.map[row]))
+		return (1);
+	tile = game->params.map[row][col];
+	if (tile == '1')
+		return 1;
+	if (tile == DOOR_TILE)
+	{
+		i = 0;
+		while (i < game->door_count)
+		{
+			if (game->doors[i].x == col && game->doors[i].y == row)
+				return (game->doors[i].state < DOOR_MAX);
+			i++;
+		}
+	}
+    return (0);
 }
 
 int	collide_diagonal(t_game *game, double to_x, double to_y)
