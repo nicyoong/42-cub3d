@@ -6,7 +6,7 @@
 #    By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/10 12:53:22 by tching            #+#    #+#              #
-#    Updated: 2025/08/13 00:16:05 by tching           ###   ########.fr        #
+#    Updated: 2025/09/26 23:04:00 by tching           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS	= $(addprefix $(SRC_DIR)/, \
 			player.c \
 			player_utils.c \
 			raycast.c \
+			raycast_utils.c \
 			resize_map.c \
 			set_params.c \
 			setup_game.c \
@@ -72,6 +73,7 @@ clean:
 	rm -f $(OBJS)
 	rm -rf $(OBJ_DIR)
 	$(MAKE) -C $(LIB_DIR) clean
+	make -C mlx clean
 
 fclean: clean
 	rm -f $(NAME)
