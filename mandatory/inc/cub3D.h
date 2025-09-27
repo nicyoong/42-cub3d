@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/26 22:13:57 by tching            #+#    #+#             */
+/*   Updated: 2025/09/27 12:42:38 by tching           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -14,8 +26,6 @@
 # include <string.h>
 # include <stdint.h>
 # include <limits.h>
-
-# define INPUT_ERROR				(void *)-1
 
 # define MOVEMENT_SPEED			4
 # define RAY_STRIP				1
@@ -49,27 +59,32 @@
 # define TRANSPARENCY			0xFF000000
 # define SHADE_NUMERATOR		600
 
-enum e_level{
+enum e_level
+{
 	HORIZONTAL,
 	VERTICAL
 };
 
-enum e_axis{
+enum e_axis
+{
 	x,
 	y
 };
 
-enum e_column_max{
+enum e_column_max
+{
 	TOP_LINE,
 	BOTTOM_LINE
 };
 
-enum e_env{
+enum e_env
+{
 	CEILING,
 	FLOOR
 };
 
-enum e_direction{
+enum e_direction
+{
 	NO,
 	SO,
 	WE,
@@ -185,83 +200,85 @@ typedef struct s_map_validation
 	size_t	total_lines;
 }	t_map_validation;
 
-void    init_cubed(t_game *game);
-int     init_graphics(t_game *game);
-void    start_cubed(t_game *game);
+uint32_t	put_shade(uint32_t color, double scale);
 
-void    error(char *message, t_game *game);
-void    exit_game(t_game *game);
-void    free_null(void **ptr);
-void    cleanup_sprites(t_image *image, void *mlx, int x);
-void    cleanup_game(t_game *game);
-void    free_game(t_game *game);
-void    exit_game(t_game *game);
-int		close_window(t_game *game);
-double  hypotenuse(double x, double y);
+uint32_t	get_color(t_image image, int x, int y);
 
-int     file_check(int argc,char *argv);
-void    open_file(t_game *game, int argc, char *argv);
-
-int get_map(char *file, t_game *game);
-int get_env_color(char *file, int identifier, t_game *game);
-int get_texture(char *file, int identifier, t_game *game);
-
-void    set_window(t_game *game);
-void    set_images(t_game *game);
-int    set_sprite(t_image *image, void *mlx, char *path);
-void    set_texture(t_game *game);
-void    setup_game(t_game *game);
-void	set_params(t_game *game);
-
-void    player_rotate_angle(t_game *game, char c);
-void    set_player(t_game *game);
-void    set_rays(t_game *game);
-size_t  get_max_ls(char **map);
-
-int press_key(int keycode, t_game *game);
-int release_key(int keycode, t_game *game);
-
-int has_wall(t_game *game, double x, double y);
-int collide_diagonal(t_game *game, double to_x, double to_y);
-void    calculate_next_step(t_game *game, int move, int side_move);
-void    bound_angle(double *angle);
-void    player_movement(t_game *game);
-
-void    contruct_ray(t_ray *ray);
-void    vertical_cast(t_game *game, t_rays_prop *v, t_ray *ray);
-void    horizontal_cast(t_game *game, t_rays_prop *h, t_ray *ray);
-void    calculate_distance(t_game *game, t_ray *ray);
-void    raycast(t_game *game, t_ray *ray);
-void    cast_all_rays(t_game *game);
-
-t_image texture_id(t_game *game, int col);
-void    texture_prop(t_game *game, int col);
-void    wall_dimension(t_game *game, int col);
-void    texture_xy(t_game *game, int col, int row);
-void    draw_walls(t_game *game);
-
-uint32_t    put_shade(uint32_t color, double scale);
-uint32_t    get_color(t_image image, int x, int y);
-void    draw_px(t_image image, int x, int y, uint32_t color);
-void    rectangle(t_image image, t_img_prop *prop);
-void    draw_cf(t_game *game);
-
-void    empty_row(t_game *game);
-int sides_closed(char **map);
-int surrounded(char **map, t_map_validation v);
-int row_validate(char **map, t_map_validation v);
-void    map_validate(t_game *game);
-
-void    reverse_matrix(char **ptr);
-int wall_and_space(char *map_line);
-int is_invalid_tile(char **map, t_resize_validation v);
-void    resize_row(t_game *game);
-void    resize_column(t_game *game);
-
-void    free_matrix(void **matix, size_t size);
-size_t  count_vectors(void **matrix);
-void    char_player_validate(t_game *game);
-void    color_validate(t_game *game, int env);
-void    validate_file(t_game *game);
+// start
+void		init_cubed(t_game *game);
+int			init_graphics(t_game *game);
+void		start_cubed(t_game *game);
+// error handling & cleanups
+void		error(char *message, t_game *game);
+void		exit_game(t_game *game);
+void		free_null(void **ptr);
+void		cleanup_sprites(t_image *image, void *mlx, int x);
+void		cleanup_game(t_game *game);
+void		free_game(t_game *game);
+void		exit_game(t_game *game);
+int			close_window(t_game *game);
+// maths
+double		hypotenuse(double x, double y);
+// validate map file
+int			file_check(int argc, char *argv);
+void		open_file(t_game *game, int argc, char *argv);
+// init asset to map
+int			get_map(char *file, t_game *game);
+int			get_env_color(char *file, int identifier, t_game *game);
+int			get_texture(char *file, int identifier, t_game *game);
+// game prop
+void		set_window(t_game *game);
+void		set_images(t_game *game);
+int			set_sprite(t_image *image, void *mlx, char *path);
+void		set_texture(t_game *game);
+void		setup_game(t_game *game);
+void		set_params(t_game *game);
+// player setting
+void		player_rotate_angle(t_game *game, char c);
+void		set_player(t_game *game);
+void		set_rays(t_game *game);
+size_t		get_max_ls(char **map);
+// keypress
+int			press_key(int keycode, t_game *game);
+int			release_key(int keycode, t_game *game);
+// wall & wall collision
+int			has_wall(t_game *game, double x, double y);
+int			collide_diagonal(t_game *game, double to_x, double to_y);
+void		calculate_next_step(t_game *game, int move, int side_move);
+void		bound_angle(double *angle);
+void		player_movement(t_game *game);
+//raycasting
+void		contruct_ray(t_ray *ray);
+void		vertical_cast(t_game *game, t_rays_prop *v, t_ray *ray);
+void		horizontal_cast(t_game *game, t_rays_prop *h, t_ray *ray);
+void		calculate_distance(t_game *game, t_ray *ray);
+void		raycast(t_game *game, t_ray *ray);
+void		cast_all_rays(t_game *game);
+// wall prop
+t_image		texture_id(t_game *game, int col);
+void		texture_prop(t_game *game, int col);
+void		wall_dimension(t_game *game, int col);
+void		texture_xy(t_game *game, int col, int row);
+void		draw_walls(t_game *game);
+// environment
+void		draw_px(t_image image, int x, int y, uint32_t color);
+void		rectangle(t_image image, t_img_prop *prop);
+void		draw_cf(t_game *game);
+// validation
+void		empty_row(t_game *game);
+int			sides_closed(char **map);
+int			surrounded(char **map, t_map_validation v);
+int			row_validate(char **map, t_map_validation v);
+void		map_validate(t_game *game);
+void		reverse_matrix(char **ptr);
+int			wall_and_space(char *map_line);
+int			is_invalid_tile(char **map, t_resize_validation v);
+void		resize_row(t_game *game);
+void		resize_column(t_game *game);
+void		free_matrix(void **matix, size_t size);
+size_t		count_vectors(void **matrix);
+void		char_player_validate(t_game *game);
+void		color_validate(t_game *game, int env);
+void		validate_file(t_game *game);
 
 #endif
