@@ -6,7 +6,7 @@
 /*   By: tching <tching@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:25:07 by tching            #+#    #+#             */
-/*   Updated: 2024/06/18 20:15:42 by tching           ###   ########.fr       */
+/*   Updated: 2025/09/27 12:44:38 by tching           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@
  */
 int	ft_atoi(const char *str)
 {
-	int	sign;
+	int			sign;
 	long long	result;
 
 	sign = 1;
 	result = 0;
-	while (*str == ' ' || *str == '\n' || *str == '\f' \
-			|| *str == '\t' || *str == '\r' || *str == '\v')
+	while (*str == ' ' || *str == '\n' || *str == '\f'
+		|| *str == '\t' || *str == '\r' || *str == '\v')
 		str++;
 	if (*str == '-' || *str == '+')
 	{
