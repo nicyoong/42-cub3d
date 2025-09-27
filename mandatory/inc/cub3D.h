@@ -6,7 +6,7 @@
 /*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 22:13:57 by tching            #+#    #+#             */
-/*   Updated: 2025/09/27 12:42:38 by tching           ###   ########.fr       */
+/*   Updated: 2025/09/27 13:06:47 by tiara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,7 +248,7 @@ void		calculate_next_step(t_game *game, int move, int side_move);
 void		bound_angle(double *angle);
 void		player_movement(t_game *game);
 //raycasting
-void		contruct_ray(t_ray *ray);
+void		construct_ray(t_ray *ray);
 void		vertical_cast(t_game *game, t_rays_prop *v, t_ray *ray);
 void		horizontal_cast(t_game *game, t_rays_prop *h, t_ray *ray);
 void		calculate_distance(t_game *game, t_ray *ray);

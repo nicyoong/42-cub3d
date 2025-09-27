@@ -6,7 +6,7 @@
 /*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 22:15:52 by tching            #+#    #+#             */
-/*   Updated: 2025/09/26 22:40:21 by tching           ###   ########.fr       */
+/*   Updated: 2025/09/27 13:06:10 by tiara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_game(t_game *game)
 {
-	if (game->file != INPUT_ERROR)
+	if (game->file != (void *)-1)
 		free_null((void *)&game->file);
 	free_null((void *)&game->rays);
 }
