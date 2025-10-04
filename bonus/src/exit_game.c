@@ -5,16 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/26 22:15:52 by tching            #+#    #+#             */
-/*   Updated: 2025/10/04 15:29:28 by nyoong           ###   ########.fr       */
+/*   Created: 2025/09/26 18:59:42 by nyoong            #+#    #+#             */
+/*   Updated: 2025/09/26 19:23:07 by nyoong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../inc/cub3D.h"
 
 void	free_game(t_game *game)
 {
-	if (game->file != (void *)-1)
+	if (game->file != (void *)INPUT_ERROR)
 		free_null((void *)&game->file);
 	free_null((void *)&game->rays);
 }
@@ -24,6 +24,8 @@ void	cleanup_game(t_game *game)
 	if (game->img.img)
 		mlx_destroy_image(game->mlx, game->img.img);
 	cleanup_sprites(game->wall_texture, game->mlx, TEXTURES_NUM);
+	cleanup_doors(game);
+	cleanup_zbuffer(game);
 	if (game->window)
 		mlx_destroy_window(game->mlx, game->window);
 	if (game->mlx)
