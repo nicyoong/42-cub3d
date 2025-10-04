@@ -41,7 +41,7 @@ void	exit_game(t_game *game)
 	free_matrix((void **)game->params.rgb[1], 0);
 	cleanup_game(game);
 	free_game(game);
-	exit(errno);
+	exit(EXIT_SUCCESS);
 }
 
 int	close_window(t_game *game)

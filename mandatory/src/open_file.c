@@ -44,11 +44,11 @@ int	file_check(int argc, char *argv)
 
 	fd = open(argv, O_RDONLY);
 	if (argc != 2)
-		printf("Error\nInvalid number of arguments. %s", strerror(errno));
+		printf("Error\nInvalid number of arguments.\n");
 	else if (fd < 0)
-		printf("Error\nFile could not be open. %s", strerror(errno));
+		printf("Error\nFile could not be open.\n");
 	else if (ft_strcmp(".cub", argv + (ft_strlen(argv) - 4)))
-		printf("Error\nFile is not a .cub extension.");
+		printf("Error\nFile is not a .cub extension.\n");
 	else
 		return (fd);
 	if (fd != -1)
