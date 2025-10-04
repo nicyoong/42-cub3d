@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tching <tching@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 22:15:52 by tching            #+#    #+#             */
-/*   Updated: 2025/10/04 15:29:28 by nyoong           ###   ########.fr       */
+/*   Updated: 2025/09/27 13:06:10 by tiara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	exit_game(t_game *game)
 	free_matrix((void **)game->params.rgb[1], 0);
 	cleanup_game(game);
 	free_game(game);
-	exit(errno);
+	exit(0);
 }
 
 int	close_window(t_game *game)
