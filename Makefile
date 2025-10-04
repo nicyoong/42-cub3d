@@ -6,7 +6,7 @@
 #    By: nyoong <nyoong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/10 12:53:22 by tching            #+#    #+#              #
-#    Updated: 2025/10/04 15:31:14 by nyoong           ###   ########.fr        #
+#    Updated: 2025/10/04 15:34:15 by nyoong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,7 @@ $(LIB_DIR)/libft.a:
 	$(MAKE) -C $(LIB_DIR) bonus
 
 $(MLX_DIR)/libmlx.a:
-	$(MAKE) -C $(MLX_DIR)
+	$(MAKE) -C $(MLX_DIR) -f Makefile.mk
 
 $(NAME): $(OBJS) $(LIB_DIR)/libft.a $(MLX_DIR)/libmlx.a
 	$(CC) $(CFLAGS) $^ -o $@ $(MLXFLAGS)
@@ -113,7 +113,7 @@ clean:
 	rm -f $(OBJS) $(BONUS_OBJS)
 	rm -rf $(OBJ_DIR) $(BONUS_OBJ_DIR)
 	$(MAKE) -C $(LIB_DIR) clean
-	make -C mlx clean
+	$(MAKE) -C $(MLX_DIR) -f Makefile.mk clean
 
 fclean: clean
 	rm -f $(NAME) $(BONUS_NAME)
